@@ -926,6 +926,16 @@
             width: 100%;
         }
 
+        /* Keep section content visible even if onvisible animation init fails on some clients */
+        #one h2.style3,
+        #one .icons.style1,
+        #projects h2.style3,
+        #projects p.style1,
+        #projects .buttons.style1 {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+
         @media (max-width: 1920px) {}
 
         @media (max-width: 1680px) {
