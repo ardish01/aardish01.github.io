@@ -346,6 +346,11 @@
             gap: 1.5rem;
         }
 
+        /* 5th card spans full width so it doesn't sit alone looking odd */
+        .project-card:last-child:nth-child(odd) {
+            grid-column: 1 / -1;
+        }
+
         .project-card {
             border: solid 2px rgba(255,255,255,0.25);
             padding: 2rem;
@@ -414,6 +419,7 @@
         #projects.is-open .project-card:nth-child(3) { opacity: 1; transform: translateX(0); transition-delay: 0.6s; }
         #projects.is-open .project-card:nth-child(4) { opacity: 1; transform: translateX(0); transition-delay: 0.75s; }
         #projects.is-open .project-card:nth-child(5) { opacity: 1; transform: translateX(0); transition-delay: 0.9s; }
+        #projects.is-open .project-card:nth-child(6) { opacity: 1; transform: translateX(0); transition-delay: 1.05s; }
 
         /* Main page slides left when projects opens */
         #wrapper {
@@ -500,31 +506,38 @@
             <div class="projects-grid">
 
                 <div class="project-card">
-                    <div class="tag">AI · Streamlit · Python</div>
-                    <h3>Genius AI Platform</h3>
-                    <p>A multi-module Streamlit app featuring a TF-IDF chatbot, linear regression marks predictor, and a MySQL-powered analytics dashboard.</p>
-                    <a href="https://github.com/ardish01" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
+                    <div class="tag">Python · Pandas · Streamlit · Plotly</div>
+                    <h3>Student Performance Dashboard</h3>
+                    <p>Data analytics project visualizing student performance trends using Python, Pandas, NumPy, Streamlit, and Plotly.</p>
+                    <a href="https://github.com/ardish01/Student-performance-dashboard" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
 
                 <div class="project-card">
-                    <div class="tag">Machine Learning · Python</div>
-                    <h3>Health Condition Predictor</h3>
-                    <p>Diabetes prediction system using the Pima Indians dataset with Streamlit UI — includes Charts & Analysis and About tabs.</p>
-                    <a href="https://github.com/ardish01" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
+                    <div class="tag">PHP · Khalti · E-Commerce</div>
+                    <h3>RDS Gears — Electronics Store</h3>
+                    <p>Full-featured e-commerce website for electronics goods with Khalti payment gateway integration.</p>
+                    <a href="https://github.com/ardish01/R.D.S-Gears---E-commerce-Website-For-Electornics-goods" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
 
                 <div class="project-card">
-                    <div class="tag">Recommendation · Python</div>
-                    <h3>E-Commerce Recommender</h3>
-                    <p>Product recommendation engine with optimized similarity functions, recency-aware scoring, and vectorized pandas operations.</p>
-                    <a href="https://github.com/ardish01" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
+                    <div class="tag">PHP · Admin Panel · Booking</div>
+                    <h3>Real Estate Management System</h3>
+                    <p>Comprehensive PHP-based platform with admin panel, property listings, agent registration, and booking functionality.</p>
+                    <a href="https://github.com/ardish01/Real-Estate-Management-System" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
 
                 <div class="project-card">
-                    <div class="tag">Web · PHP · MySQL</div>
-                    <h3>More on GitHub</h3>
-                    <p>Check out the full list of academic and personal projects, including web apps, data pipelines, and BCA coursework repositories.</p>
-                    <a href="https://github.com/ardish01" class="proj-link" target="_blank" rel="noopener">github.com/ardish01 →</a>
+                    <div class="tag">Python · Scikit-learn · ML</div>
+                    <h3>Diabetes Prediction System</h3>
+                    <p>Machine learning model predicting diabetes from patient health data using Pandas, Scikit-learn, Matplotlib, and Joblib.</p>
+                    <a href="https://github.com/ardish01/Diabetes-prediction-system" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="tag">Python · Scikit-learn · Streamlit</div>
+                    <h3>E-Commerce Recommendation System</h3>
+                    <p>ML-powered product recommendation engine built with Pandas, Scikit-learn, NumPy, Matplotlib, Streamlit, and SciPy.</p>
+                    <a href="https://github.com/ardish01/e-commerce-product-recommendation-system" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
 
             </div>
