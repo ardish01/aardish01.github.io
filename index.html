@@ -352,10 +352,6 @@
             gap: 1rem;
         }
 
-        /* Bottom row: cards 4 and 5 sit in columns 1 and 2, centered via auto margins */
-        .project-card:nth-child(4) { grid-column: 1; }
-        .project-card:nth-child(5) { grid-column: 2; }
-
         .project-card {
             border: solid 2px rgba(255,255,255,0.2);
             padding: 1.25rem 1.25rem 1rem;
@@ -456,7 +452,6 @@
             .buttons.style1:not(:last-child) { margin-bottom: 2.25rem !important; }
             .buttons.style1 li a { letter-spacing: 0.4rem; padding-left: calc(0.4rem + 2.125rem); font-size: 1em; }
             .projects-grid { grid-template-columns: 1fr; }
-            .project-card:nth-child(4), .project-card:nth-child(5) { grid-column: 1; }
             #projects-inner { padding: 3rem; }
         }
         @media (max-width: 480px) { #main > .inner { --spacing: 1.75rem; } }
@@ -547,6 +542,13 @@
                     <h3>E-Commerce Recommendation System</h3>
                     <p>ML-powered product recommendation engine built with Pandas, Scikit-learn, NumPy, Matplotlib, Streamlit, and SciPy.</p>
                     <a href="https://github.com/ardish01/e-commerce-product-recommendation-system" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="tag">Python · Pandas · NumPy · Power BI</div>
+                    <h3>Ride Sharing Demand &amp; Fare Analysis</h3>
+                    <p>Analyzes ride-sharing trip data to identify peak demand hours, fare trends, and trip patterns. Data cleaned and analyzed using Python (Pandas, NumPy, Matplotlib), with insights visualized through an interactive Power BI dashboard.</p>
+                    <a href="https://github.com/ardish01/Ride-Sharing-Ride-demand-Analysis" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
 
             </div>
