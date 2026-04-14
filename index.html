@@ -105,6 +105,73 @@
         a { color: inherit; text-decoration: underline; transition: color 0.25s ease; }
         a[onclick]:not([href]) { cursor: pointer; }
 
+        /* ============================================================
+           HAMBURGER MENU (top-right)
+           ============================================================ */
+        #hamburger-btn {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 100;
+            background: none;
+            border: solid 2px rgba(255,255,255,0.6);
+            cursor: pointer;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: border-color 0.25s ease, transform 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        #hamburger-btn:hover { border-color: var(--white); transform: scale(1.05); }
+        #hamburger-btn span {
+            display: block;
+            width: 1.1rem;
+            height: 2px;
+            background: var(--white);
+            border-radius: 1px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        #hamburger-btn.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #hamburger-btn.is-open span:nth-child(2) { opacity: 0; }
+        #hamburger-btn.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Nav dropdown */
+        #nav-menu {
+            position: fixed;
+            top: 5.5rem;
+            right: 1.5rem;
+            z-index: 99;
+            background: rgba(20,20,23,0.97);
+            border: solid 1px rgba(255,255,255,0.15);
+            padding: 0.5rem 0;
+            min-width: 10rem;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-10px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        #nav-menu.is-open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+        #nav-menu a {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.5em;
+            letter-spacing: 0.3rem;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+        #nav-menu a:hover { color: var(--accent); background: rgba(255,255,255,0.04); }
+
         /* ---- Wrapper ---- */
         #wrapper {
             -webkit-overflow-scrolling: touch;
@@ -246,7 +313,6 @@
         .icons.style1 a:hover svg { fill: rgba(255,255,255,0.929) !important; }
         .icons.style1 li a:hover { transform: scale(1.1125); }
 
-        /* Touch-friendly icon tap targets */
         @media (max-width: 736px) {
             .icons.style1 li a { min-width: 44px; min-height: 44px; }
         }
@@ -296,7 +362,6 @@
         .buttons.style1 .button { color: var(--white); border: solid 3px var(--white); }
         .buttons.style1 li a:hover { transform: scale(1.0425); }
 
-        /* Mobile: full-width buttons */
         @media (max-width: 480px) {
             .buttons.style1 { flex-direction: column; width: 100%; }
             .buttons.style1 li { width: 100%; }
@@ -331,18 +396,182 @@
         .container.style2.default > .wrapper > .inner > *:last-child { margin-bottom: 0 !important; }
 
         /* ============================================================
+           EDUCATION SECTION
+           ============================================================ */
+        .education-section {
+            width: 100%;
+            padding: var(--padding-v) var(--padding-h);
+            max-width: 70rem;
+            margin: 0 auto;
+        }
+
+        .education-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+
+        .edu-card {
+            border: solid 2px var(--card-border);
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.03);
+            position: relative;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .edu-card:hover {
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-3px);
+        }
+        .edu-card .edu-level {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.38em;
+            letter-spacing: 0.3rem;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 400;
+            margin-bottom: 0.6rem;
+        }
+        .edu-card h3 {
+            font-family: 'Dela Gothic One', cursive;
+            color: var(--white);
+            font-size: 0.65em;
+            letter-spacing: 0.1rem;
+            text-transform: uppercase;
+            line-height: 1.4;
+            margin-bottom: 0.4rem;
+        }
+        .edu-card .edu-field {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.4em;
+            color: var(--text-muted);
+            letter-spacing: 0.1rem;
+            font-weight: 300;
+        }
+
+        /* ============================================================
+           SKILLS SECTION
+           ============================================================ */
+        .skills-section {
+            width: 100%;
+            padding: var(--padding-v) var(--padding-h);
+            max-width: 70rem;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            border: solid 2px var(--card-border);
+            padding: 1.25rem 1.25rem 1.1rem;
+            background: rgba(255,255,255,0.03);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .skill-card:hover {
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-3px);
+        }
+        .skill-card .skill-cat {
+            font-family: 'Dela Gothic One', cursive;
+            font-size: 0.5em;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+        .skill-card .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .skill-tag {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.35em;
+            letter-spacing: 0.1rem;
+            text-transform: uppercase;
+            color: var(--white);
+            border: solid 1px rgba(255,255,255,0.25);
+            padding: 0.3rem 0.65rem;
+            font-weight: 300;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+        .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Soft skills & languages — full width */
+        .skill-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* ============================================================
+           CONTACT SECTION
+           ============================================================ */
+        .contact-section {
+            width: 100%;
+            padding: var(--padding-v) var(--padding-h);
+            max-width: 70rem;
+            margin: 0 auto;
+            padding-bottom: 6rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.5em;
+            letter-spacing: 0.3rem;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            border: solid 2px rgba(255,255,255,0.3);
+            padding: 0.85rem 1.4rem;
+            transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+        }
+        .contact-link:hover {
+            border-color: var(--white);
+            color: var(--accent);
+            transform: scale(1.04);
+        }
+        .contact-link svg {
+            width: 1.1em;
+            height: 1.1em;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* Section divider */
+        .section-divider {
+            width: 100%;
+            max-width: 70rem;
+            margin: 0 auto;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* ============================================================
            PROJECTS PANEL — SCROLLABLE
            ============================================================ */
-
         #projects {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;                      /* full viewport */
-            overflow-y: auto;                  /* scrollable */
-            -webkit-overflow-scrolling: touch; /* smooth momentum on iOS */
-            overscroll-behavior: contain;      /* prevent scroll bleed */
+            height: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
             z-index: 10;
             transform: translateX(100%);
             transition: transform 0.75s cubic-bezier(0.77, 0, 0.175, 1);
@@ -354,12 +583,10 @@
             background-position: center, 0% 0%, center;
             background-repeat: repeat, repeat, no-repeat;
             background-color: #141417;
-            background-attachment: fixed; /* keep bg fixed while content scrolls */
+            background-attachment: fixed;
         }
 
-        #projects.is-open {
-            transform: translateX(0%);
-        }
+        #projects.is-open { transform: translateX(0%); }
 
         #projects-inner {
             max-width: 70rem;
@@ -369,7 +596,6 @@
             position: relative;
         }
 
-        /* ---- Sticky header inside projects ---- */
         #projects-header {
             position: sticky;
             top: 0;
@@ -382,7 +608,6 @@
             background: linear-gradient(to bottom, rgba(20,20,23,0.97) 80%, transparent);
         }
 
-        /* Back button */
         #back-btn {
             display: inline-flex;
             align-items: center;
@@ -405,7 +630,6 @@
         #back-btn:active { transform: scale(0.97); opacity: 0.7; }
         #back-btn svg { width: 1.1em; height: 1.1em; fill: var(--white); flex-shrink: 0; }
 
-        /* Projects heading */
         #projects-title {
             text-transform: uppercase;
             color: var(--white);
@@ -416,7 +640,6 @@
             font-weight: 400;
         }
 
-        /* Project cards grid */
         .projects-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -440,7 +663,6 @@
             transform: translateY(-3px) !important;
         }
 
-        /* Staggered card entrance */
         #projects.is-open .project-card:nth-child(1) { opacity: 1; transform: translateX(0); transition-delay: 0.3s; }
         #projects.is-open .project-card:nth-child(2) { opacity: 1; transform: translateX(0); transition-delay: 0.45s; }
         #projects.is-open .project-card:nth-child(3) { opacity: 1; transform: translateX(0); transition-delay: 0.6s; }
@@ -490,7 +712,6 @@
             padding-bottom: 2px;
             transition: border-color 0.2s ease, color 0.2s ease;
             align-self: flex-start;
-            /* Better tap target */
             padding-top: 6px;
             padding-bottom: 6px;
         }
@@ -501,18 +722,12 @@
            ============================================================ */
         @media (max-width: 980px) {
             html { font-size: 10pt; }
-
-            .projects-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            #projects-inner {
-                padding: 2rem 3rem 4rem;
-            }
-
-            #projects-title {
-                font-size: 1.5em;
-            }
+            .projects-grid { grid-template-columns: 1fr 1fr; }
+            #projects-inner { padding: 2rem 3rem 4rem; }
+            #projects-title { font-size: 1.5em; }
+            .education-cards { grid-template-columns: 1fr 1fr; }
+            .skills-grid { grid-template-columns: 1fr 1fr; }
+            .education-section, .skills-section, .contact-section { padding: 4rem 3rem; }
         }
 
         /* ============================================================
@@ -521,7 +736,6 @@
         @media (max-width: 736px) {
             html { font-size: 10pt; }
 
-            /* Main page layout */
             #main > .inner {
                 --padding-horizontal: 2rem;
                 --padding-vertical: 3.5rem;
@@ -547,106 +761,52 @@
                 line-height: 2;
             }
 
-            .icons.style1 {
-                font-size: 1.6em;
-                gap: 1.25rem;
-                flex-wrap: wrap;
-            }
+            .icons.style1 { font-size: 1.6em; gap: 1.25rem; flex-wrap: wrap; }
             .icons.style1:not(:first-child) { margin-top: 2rem !important; }
             .icons.style1:not(:last-child)  { margin-bottom: 2rem !important; }
 
             .buttons.style1:not(:first-child) { margin-top: 2rem !important; }
             .buttons.style1:not(:last-child)  { margin-bottom: 2rem !important; }
 
-            /* Single column grid on mobile */
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 0.85rem;
-            }
+            .projects-grid { grid-template-columns: 1fr; gap: 0.85rem; }
+            #projects-inner { padding: 0 1.25rem 3rem; }
+            #projects-header { padding: 0.85rem 0; gap: 0.75rem; flex-wrap: wrap; }
+            #projects-title { font-size: 1.35em; letter-spacing: 0.35rem; }
+            #back-btn { font-size: 0.55em; height: 3rem; padding: 0 1.25rem; }
 
-            /* Projects panel inner padding */
-            #projects-inner {
-                padding: 0 1.25rem 3rem;
-            }
-
-            /* Sticky header on mobile */
-            #projects-header {
-                padding: 0.85rem 0;
-                gap: 0.75rem;
-                flex-wrap: wrap;
-            }
-
-            #projects-title {
-                font-size: 1.35em;
-                letter-spacing: 0.35rem;
-            }
-
-            #back-btn {
-                font-size: 0.55em;
-                height: 3rem;
-                padding: 0 1.25rem;
-            }
-
-            /* Project cards on mobile */
-            .project-card {
-                padding: 1rem;
-            }
+            .project-card { padding: 1rem; }
             .project-card .tag  { font-size: 0.38em; }
             .project-card h3    { font-size: 0.75em; }
             .project-card p     { font-size: 0.45em; }
             .project-card a.proj-link { font-size: 0.4em; }
 
-            /* Hero container: less top padding on small screens */
-            #container05.style2 {
-                padding-top: 12vh;
-            }
+            #container05.style2 { padding-top: 12vh; }
+
+            .education-cards { grid-template-columns: 1fr; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .skill-card.full-width { grid-column: 1 / -1; }
+            .education-section, .skills-section, .contact-section { padding: 3rem 1.5rem; }
+            .contact-links { flex-direction: column; }
+            .contact-link { font-size: 0.55em; }
         }
 
-        /* ============================================================
-           RESPONSIVE — SMALL MOBILE (≤ 480px)
-           ============================================================ */
         @media (max-width: 480px) {
             #main > .inner { --spacing: 1.5rem; }
-
-            #container05.style2 {
-                padding-top: 10vh;
-            }
-
-            h1.style2, h2.style2, h3.style2, p.style2 {
-                font-size: 1.75em;
-                letter-spacing: 0.25rem;
-                width: calc(100% + 0.25rem);
-            }
-
-            h1.style3, h2.style3, h3.style3, p.style3 {
-                font-size: 1.3em;
-            }
-
-            .icons.style1 {
-                font-size: 1.4em;
-                gap: 1rem;
-            }
+            #container05.style2 { padding-top: 10vh; }
+            h1.style2, h2.style2, h3.style2, p.style2 { font-size: 1.75em; letter-spacing: 0.25rem; width: calc(100% + 0.25rem); }
+            h1.style3, h2.style3, h3.style3, p.style3 { font-size: 1.3em; }
+            .icons.style1 { font-size: 1.4em; gap: 1rem; }
         }
 
-        /* ============================================================
-           RESPONSIVE — XSMALL (≤ 360px)
-           ============================================================ */
         @media (max-width: 360px) {
-            #main > .inner {
-                --padding-horizontal: 1.5rem;
-                --padding-vertical: 2.5rem;
-                --spacing: 1.25rem;
-            }
-
+            #main > .inner { --padding-horizontal: 1.5rem; --padding-vertical: 2.5rem; --spacing: 1.25rem; }
             h1.style2, h2.style2, h3.style2, p.style2 { font-size: 1.5em; }
             h1.style3, h2.style3, h3.style3, p.style3 { font-size: 1.2em; }
             h1.style1, h2.style1, h3.style1, p.style1 { font-size: 0.85em; }
-
             .icons.style1 { gap: 0.85rem; font-size: 1.35em; }
             .buttons.style1 { gap: 0.5rem; }
         }
 
-        /* ---- Large screens ---- */
         @media (max-width: 1680px) { html { font-size: 12pt; } }
         @media (max-width: 1280px) { html { font-size: 12pt; } }
     </style>
@@ -679,11 +839,24 @@
         </symbol>
     </svg>
 
+    <!-- ========== HAMBURGER BUTTON ========== -->
+    <button id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- ========== NAV DROPDOWN ========== -->
+    <nav id="nav-menu" aria-label="Site navigation">
+        <a href="#education-section" onclick="closeNav(); scrollToId('education-section')">Education</a>
+        <a href="#skills-section" onclick="closeNav(); scrollToId('skills-section')">Skills</a>
+        <a href="#projects" onclick="closeNav(); openProjects()">Projects</a>
+        <a href="#one" onclick="closeNav(); scrollToId('one')">Find Me On</a>
+    </nav>
+
     <!-- ========== PROJECTS PANEL ========== -->
     <div id="projects" role="dialog" aria-modal="true" aria-label="My Projects">
         <div id="projects-inner">
-
-            <!-- Sticky header: back button + title -->
             <div id="projects-header">
                 <button id="back-btn" onclick="closeProjects()" aria-label="Go back">
                     <svg aria-hidden="true"><use xlink:href="#icon-arrow-left"></use></svg>
@@ -693,49 +866,42 @@
             </div>
 
             <div class="projects-grid">
-
                 <div class="project-card">
                     <div class="tag">Python · Pandas · Streamlit · Plotly</div>
                     <h3>Student Performance Dashboard</h3>
                     <p>Data analytics project visualizing student performance trends using Python, Pandas, NumPy, Streamlit, and Plotly.</p>
                     <a href="https://github.com/ardish01/Student-performance-dashboard" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
-
                 <div class="project-card">
                     <div class="tag">PHP · Khalti · E-Commerce</div>
                     <h3>RDS Gears — Electronics Store</h3>
                     <p>Full-featured e-commerce website for electronics goods with Khalti payment gateway integration.</p>
                     <a href="https://github.com/ardish01/R.D.S-Gears---E-commerce-Website-For-Electornics-goods" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
-
                 <div class="project-card">
                     <div class="tag">PHP · Admin Panel · Booking</div>
                     <h3>Real Estate Management System</h3>
                     <p>Comprehensive PHP-based platform with admin panel, property listings, agent registration, and booking functionality.</p>
                     <a href="https://github.com/ardish01/Real-Estate-Management-System" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
-
                 <div class="project-card">
                     <div class="tag">Python · Scikit-learn · ML</div>
                     <h3>Diabetes Prediction System</h3>
                     <p>Machine learning model predicting diabetes from patient health data using Pandas, Scikit-learn, Matplotlib, and Joblib.</p>
                     <a href="https://github.com/ardish01/Diabetes-prediction-system" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
-
                 <div class="project-card">
                     <div class="tag">Python · Scikit-learn · Streamlit</div>
                     <h3>E-Commerce Recommendation System</h3>
                     <p>ML-powered product recommendation engine built with Pandas, Scikit-learn, NumPy, Matplotlib, Streamlit, and SciPy.</p>
                     <a href="https://github.com/ardish01/e-commerce-product-recommendation-system" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
-
                 <div class="project-card">
                     <div class="tag">Python · Pandas · NumPy · Power BI</div>
                     <h3>Ride Sharing Demand &amp; Fare Analysis</h3>
                     <p>Analyzes ride-sharing trip data to identify peak demand hours, fare trends, and trip patterns. Data cleaned and analyzed using Python (Pandas, NumPy, Matplotlib), with insights visualized through an interactive Power BI dashboard.</p>
                     <a href="https://github.com/ardish01/Ride-Sharing-Ride-demand-Analysis" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
-
             </div>
         </div>
     </div>
@@ -744,6 +910,7 @@
     <div id="wrapper">
         <div id="main">
             <div class="inner">
+                <!-- HOME -->
                 <div id="container05" class="style2 container default full">
                     <div class="wrapper">
                         <div class="inner" data-onvisible-trigger="1">
@@ -756,6 +923,110 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- EDUCATION -->
+                <div id="education-section" class="style2 container default full">
+                    <div class="wrapper">
+                        <div class="inner" data-onvisible-trigger="1">
+                            <h2 class="style3">Education</h2>
+                            <div class="education-cards" style="margin-top:2rem;">
+                                <div class="edu-card">
+                                    <div class="edu-level">Higher Secondary</div>
+                                    <h3>Khwopa College</h3>
+                                    <div class="edu-field">Computer Science</div>
+                                </div>
+                                <div class="edu-card">
+                                    <div class="edu-level">Bachelor's — Running</div>
+                                    <h3>Bhaktapur Multiple Campus</h3>
+                                    <div class="edu-field">Bachelor of Computer Applications (BCA)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SKILLS -->
+                <div id="skills-section" class="style2 container default full">
+                    <div class="wrapper">
+                        <div class="inner" data-onvisible-trigger="1">
+                            <h2 class="style3">Skills</h2>
+                            <div class="skills-grid" style="margin-top:2rem;">
+
+                                <div class="skill-card">
+                                    <div class="skill-cat">Data Science &amp; Analytics</div>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">Python</span>
+                                        <span class="skill-tag">Pandas</span>
+                                        <span class="skill-tag">NumPy</span>
+                                        <span class="skill-tag">Scikit-learn</span>
+                                        <span class="skill-tag">Matplotlib</span>
+                                        <span class="skill-tag">Streamlit</span>
+                                        <span class="skill-tag">Plotly</span>
+                                        <span class="skill-tag">Power BI</span>
+                                        <span class="skill-tag">MS Excel</span>
+                                    </div>
+                                </div>
+
+                                <div class="skill-card">
+                                    <div class="skill-cat">Machine Learning</div>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">Logistic Regression</span>
+                                        <span class="skill-tag">Decision Tree</span>
+                                        <span class="skill-tag">Collaborative Filtering</span>
+                                        <span class="skill-tag">TF-IDF</span>
+                                        <span class="skill-tag">Cosine Similarity</span>
+                                        <span class="skill-tag">RMSE Evaluation</span>
+                                    </div>
+                                </div>
+
+                                <div class="skill-card">
+                                    <div class="skill-cat">Web Technologies</div>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">HTML</span>
+                                        <span class="skill-tag">CSS</span>
+                                        <span class="skill-tag">JavaScript</span>
+                                        <span class="skill-tag">PHP</span>
+                                        <span class="skill-tag">MySQL</span>
+                                    </div>
+                                </div>
+
+                                <div class="skill-card">
+                                    <div class="skill-cat">Database &amp; Tools</div>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">MySQL</span>
+                                        <span class="skill-tag">SQL</span>
+                                        <span class="skill-tag">XAMPP</span>
+                                        <span class="skill-tag">Git</span>
+                                        <span class="skill-tag">VS Code</span>
+                                        <span class="skill-tag">Power BI</span>
+                                    </div>
+                                </div>
+
+                                <div class="skill-card full-width">
+                                    <div class="skill-cat">Soft Skills</div>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">Effective Communication</span>
+                                        <span class="skill-tag">English Speaking</span>
+                                        <span class="skill-tag">Presentation &amp; Public Speaking</span>
+                                        <span class="skill-tag">Team Collaboration</span>
+                                        <span class="skill-tag">Problem Solving</span>
+                                    </div>
+                                </div>
+
+                                <div class="skill-card full-width">
+                                    <div class="skill-cat">Languages</div>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">Nepali — Native</span>
+                                        <span class="skill-tag">English — Proficient (Speaking &amp; Writing)</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FIND ME ON (SOCIALS) -->
                 <div id="one" class="style2 container default full">
                     <div class="wrapper">
                         <div class="inner" data-onvisible-trigger="1">
@@ -771,21 +1042,52 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
+        // ---- Hamburger menu ----
+        var hamburgerBtn = document.getElementById('hamburger-btn');
+        var navMenu = document.getElementById('nav-menu');
+
+        hamburgerBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var isOpen = hamburgerBtn.classList.toggle('is-open');
+            navMenu.classList.toggle('is-open', isOpen);
+            hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && e.target !== hamburgerBtn) {
+                closeNav();
+            }
+        });
+
+        function closeNav() {
+            hamburgerBtn.classList.remove('is-open');
+            navMenu.classList.remove('is-open');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        function scrollToId(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                setTimeout(function() {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
+            }
+        }
+
         // ---- Projects panel open/close ----
         function openProjects() {
             var panel = document.getElementById('projects');
             panel.classList.add('is-open');
             document.body.classList.add('projects-open');
             document.body.style.overflow = 'hidden';
-            // Reset scroll to top every time it opens
             panel.scrollTop = 0;
-            // Trap focus for accessibility
             panel.setAttribute('tabindex', '-1');
             panel.focus();
         }
@@ -794,7 +1096,6 @@
             document.getElementById('projects').classList.remove('is-open');
             document.body.classList.remove('projects-open');
             document.body.style.overflow = '';
-            // Return focus to trigger button
             var btn = document.getElementById('projects-btn');
             if (btn) btn.focus();
         }
@@ -804,9 +1105,11 @@
             openProjects();
         });
 
-        // Close on Escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeProjects();
+            if (e.key === 'Escape') {
+                closeProjects();
+                closeNav();
+            }
         });
 
         // ---- Original site JS ----
@@ -872,7 +1175,6 @@
             if (client.os == 'android') { $body.classList.add('is-touch'); }
             else if (client.os == 'ios') { $body.classList.add('is-touch'); }
 
-            // Smooth scroll for Socials button
             var socialsBtn = document.querySelector('a[href="#one"]');
             if (socialsBtn) {
                 socialsBtn.addEventListener('click', function(e) {
@@ -882,7 +1184,6 @@
                 });
             }
 
-            // ---- Onvisible animations ----
             var scrollEvents = {
                 items: [],
                 add: function(o) {
@@ -962,6 +1263,9 @@
             onvisibleAdd('h1.style2, h2.style2, h3.style2, p.style2', { style:'fade-right', speed:1250, intensity:10, threshold:3, delay:250 });
             onvisibleAdd('h1.style1, h2.style1, h3.style1, p.style1', { style:'fade-left', speed:1000, intensity:5, threshold:3, delay:250 });
             onvisibleAdd('.buttons.style1', { style:'fade-up', speed:1000, intensity:5, threshold:3, delay:250 });
+            onvisibleAdd('.edu-card', { style:'fade-up', speed:800, intensity:5, threshold:3, delay:200 });
+            onvisibleAdd('.skill-card', { style:'fade-up', speed:800, intensity:5, threshold:3, delay:150 });
+            onvisibleAdd('.contact-link', { style:'fade-up', speed:800, intensity:5, threshold:3, delay:150 });
         })();
     </script>
 </body>
