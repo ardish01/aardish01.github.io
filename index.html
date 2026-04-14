@@ -112,7 +112,7 @@
             position: fixed;
             top: 1.5rem;
             right: 1.5rem;
-            z-index: 100;
+            z-index: 200;
             background: none;
             border: solid 2px rgba(255,255,255,0.6);
             cursor: pointer;
@@ -144,7 +144,7 @@
             position: fixed;
             top: 5.5rem;
             right: 1.5rem;
-            z-index: 99;
+            z-index: 199;
             background: rgba(20,20,23,0.97);
             border: solid 1px rgba(255,255,255,0.15);
             padding: 0.5rem 0;
@@ -848,10 +848,10 @@
 
     <!-- ========== NAV DROPDOWN ========== -->
     <nav id="nav-menu" aria-label="Site navigation">
-        <a href="#education-section" onclick="closeNav(); scrollToId('education-section')">Education</a>
-        <a href="#skills-section" onclick="closeNav(); scrollToId('skills-section')">Skills</a>
+        <a href="#education-section" onclick="closeNav(); closeProjects(); scrollToId('education-section')">Education</a>
+        <a href="#skills-section" onclick="closeNav(); closeProjects(); scrollToId('skills-section')">Skills</a>
         <a href="#projects" onclick="closeNav(); openProjects()">Projects</a>
-        <a href="#one" onclick="closeNav(); scrollToId('one')">Find Me On</a>
+        <a href="#one" onclick="closeNav(); closeProjects(); scrollToId('one')">Find Me On</a>
     </nav>
 
     <!-- ========== PROJECTS PANEL ========== -->
