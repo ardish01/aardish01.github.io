@@ -670,6 +670,7 @@
         #projects.is-open .project-card:nth-child(4) { opacity: 1; transform: translateX(0); transition-delay: 0.75s; }
         #projects.is-open .project-card:nth-child(5) { opacity: 1; transform: translateX(0); transition-delay: 0.9s; }
         #projects.is-open .project-card:nth-child(6) { opacity: 1; transform: translateX(0); transition-delay: 1.05s; }
+        #projects.is-open .project-card:nth-child(7) { opacity: 1; transform: translateX(0); transition-delay: 1.2s; }
 
         .project-card .tag {
             font-family: 'Inter', sans-serif;
@@ -903,6 +904,12 @@
                     <p>Analyzes ride-sharing trip data to identify peak demand hours, fare trends, and trip patterns. Data cleaned and analyzed using Python (Pandas, NumPy, Matplotlib), with insights visualized through an interactive Power BI dashboard.</p>
                     <a href="https://github.com/ardish01/Ride-Sharing-Ride-demand-Analysis" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
                 </div>
+                <div class="project-card">
+                    <div class="tag">Python · Machine Learning · AI · Healthcare</div>
+                    <h3>AI-Based Diabetes Risk Management System</h3>
+                    <p>Advanced AI-powered system for comprehensive diabetes risk assessment and management using machine learning algorithms, predictive analytics, and healthcare data processing.</p>
+                    <a href="https://github.com/ardish01/AI-Based-Diabetes-Risk-Management-System" class="proj-link" target="_blank" rel="noopener">View on GitHub →</a>
+                </div>
             </div>
         </div>
     </div>
@@ -968,7 +975,7 @@
                                 </div>
 
                                 <div class="skill-card">
-                                    <div class="skill-cat">Machine Learning</div>
+                                    <div class="skill-cat">Machine Learning &amp; AI</div>
                                     <div class="skill-tags">
                                         <span class="skill-tag">Logistic Regression</span>
                                         <span class="skill-tag">Decision Tree</span>
@@ -976,6 +983,8 @@
                                         <span class="skill-tag">TF-IDF</span>
                                         <span class="skill-tag">Cosine Similarity</span>
                                         <span class="skill-tag">RMSE Evaluation</span>
+                                        <span class="skill-tag">Predictive Analytics</span>
+                                        <span class="skill-tag">Healthcare AI</span>
                                     </div>
                                 </div>
 
@@ -1122,7 +1131,7 @@
                 client = (function() {
                     var o = { browser: 'other', browserVersion: 0, os: 'other', osVersion: 0, mobile: false, canUse: null, flags: { lsdUnits: false } },
                         ua = navigator.userAgent, a, i;
-                    a = [['firefox',/Firefox\/([0-9\.]+)/],['edge',/Edge\/([0-9\.]+)/],['safari',/Version\/([0-9\.]+).+Safari/],['chrome',/Chrome\/([0-9\.]+)/],['chrome',/CriOS\/([0-9\.]+)/],['ie',/Trident\/.+rv:([0-9]+)/]];
+                    a = [['firefox',/Firefox\/([0-9\.]+)/],['edge',/Edge\/([0-9\.]+)/],['safari',/Version\/([0-9\.]+).+Safari/],['chrome',/Chrome\/([0-9\.]+)/],['chrome',/CriOS\/([0-9\.]+)/],['ie',/Trident.+rv:([0-9]+)/]];
                     for (i = 0; i < a.length; i++) { if (ua.match(a[i][1])) { o.browser = a[i][0]; o.browserVersion = parseFloat(RegExp.$1); break; } }
                     a = [['ios',/([0-9_]+) like Mac OS X/,function(v){return v.replace('_','.').replace('_','')}],['ios',/CPU like Mac OS X/,function(v){return 0}],['ios',/iPad; CPU/,function(v){return 0}],['android',/Android ([0-9\.]+)/,null],['mac',/Macintosh.+Mac OS X ([0-9_]+)/,function(v){return v.replace('_','.').replace('_','')}],['windows',/Windows NT ([0-9\.]+)/,null]];
                     for (i = 0; i < a.length; i++) { if (ua.match(a[i][1])) { o.os = a[i][0]; o.osVersion = parseFloat(a[i][2] ? (a[i][2])(RegExp.$1) : RegExp.$1); break; } }
