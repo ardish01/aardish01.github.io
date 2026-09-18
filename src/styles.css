@@ -60,7 +60,7 @@ h1 em, .next-page em { font-style: normal; color: var(--accent); }
 .hero-copy { position: relative; z-index: 2; }
 .hero-title { margin: 0 0 1.75rem; font-size: clamp(3.25rem, 6.6vw, 7rem); }
 .hero-title span { display: block; }
-.hero-intro { max-width: 29rem; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+.hero-intro { max-width: 32rem; font-size: 1rem; color: var(--muted); line-height: 1.8; }
 .hero-actions { margin-top: 2rem; display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; }
 .portrait-wrap { position: relative; width: 100%; max-width: 30rem; justify-self: end; margin: 0; }
 .portrait-figure { margin: 0; }

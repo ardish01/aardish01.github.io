@@ -13,8 +13,8 @@ export default function Home() {
           </h1>
           <p className="hero-intro">
             Building for the web. Exploring what data can do.
-            {' '}I’m a {profile.role.toLowerCase()} at {profile.company}, with a curiosity for machine learning
-            and making complex things feel simple.
+            {' '}I’m a {profile.role.toLowerCase()} at {profile.company} and a data annotator at CloudFactory,
+            with a curiosity for machine learning and making complex things feel simple.
           </p>
           <div className="hero-actions">
             <Link className="button button-primary" to="/projects">Explore my work <Arrow /></Link>
