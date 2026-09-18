@@ -8,7 +8,6 @@ export default function Home() {
     <div className="home-shell">
       <section className="hero" aria-labelledby="hero-title">
         <Reveal className="hero-copy">
-          <p className="eyebrow">{profile.role} at {profile.company}</p>
           <h1 id="hero-title" className="hero-title">
             <span>Aardish</span><span><em>Duwal.</em></span>
           </h1>
