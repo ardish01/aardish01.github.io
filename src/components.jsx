@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router';
 
@@ -18,6 +19,19 @@ export function Reveal({ children, className = '', delay = 0 }) {
 
 export function Arrow({ diagonal = true, className = '' }) {
   return <span aria-hidden="true" className={`inline-block leading-none [font-family:Arial,sans-serif] ${className}`}>{diagonal ? '↗' : '→'}</span>;
+}
+
+// One-shot press feedback for photos, so touch devices get an effect too.
+export function useTapPulse(duration = 750) {
+  const [active, setActive] = useState(false);
+  const timer = useRef(null);
+  useEffect(() => () => clearTimeout(timer.current), []);
+  const pulse = () => {
+    setActive(true);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setActive(false), duration);
+  };
+  return [active, pulse];
 }
 
 export function PageHeading({ number, label, children, description }) {

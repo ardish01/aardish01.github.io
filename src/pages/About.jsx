@@ -1,10 +1,11 @@
 import { Link } from 'react-router';
-import { Arrow, Reveal, ui } from '../components.jsx';
+import { Arrow, Reveal, ui, useTapPulse } from '../components.jsx';
 import { education, experience, profile } from '../data.js';
 import portraitSmall from '../../assets/images/aardish-portrait-480.webp';
 import portraitLarge from '../../assets/images/aardish-portrait-960.webp';
 
 export default function About() {
+  const [tapped, pulse] = useTapPulse();
   return (
     <div className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1520px] px-pad pt-20 max-[800px]:pt-12">
       <section className="grid min-h-[36rem] grid-cols-[1.25fr_.8fr] items-center gap-[clamp(3rem,8vw,8rem)] pb-16 max-[800px]:min-h-0 max-[800px]:grid-cols-1 max-[800px]:gap-12 max-[800px]:pb-8" aria-labelledby="about-title">
@@ -18,7 +19,7 @@ export default function About() {
         </Reveal>
         <Reveal className="relative max-[800px]:mx-auto max-[800px]:w-[calc(100%-1rem)] max-[800px]:max-w-[26rem]" delay={0.12}>
           <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 inset-y-[15%] -z-10 bg-[radial-gradient(ellipse,rgba(95,224,200,.10),transparent_65%)]" />
-          <figure className="m-0 rotate-2 rounded-[28px] border border-white/15 glass-strong p-4 transition-transform duration-700 ease-expo pointer-fine:hover:rotate-0">
+          <figure onPointerUp={pulse} className={`m-0 rounded-[28px] border border-white/15 glass-strong p-4 transition-transform duration-700 ease-expo pointer-fine:hover:rotate-0 ${tapped ? 'rotate-0 scale-[1.015]' : 'rotate-2'}`}>
             <img className="aspect-[4/5] w-full rounded-xl object-cover" src={portraitLarge} srcSet={`${portraitSmall} 480w, ${portraitLarge} 960w`}
               sizes="(max-width: 800px) 90vw, 26rem" alt="Aardish Duwal wearing sunglasses"
               width="960" height="1152" fetchPriority="high" />
