@@ -27,7 +27,6 @@ export const projects = [
   { title: 'Product Recommender', category: 'Machine learning', stack: 'Scikit-learn · Streamlit · SciPy', repo: 'e-commerce-product-recommendation-system', description: 'A machine learning recommendation engine that uses product data to surface relevant items.' },
   { title: 'Ride Demand Analysis', category: 'Data analytics', stack: 'Python · NumPy · Power BI', repo: 'Ride-Sharing-Ride-demand-Analysis', description: 'An analysis of peak ride demand, fare trends, and trip patterns, brought together in an interactive Power BI dashboard.' },
   { title: 'Real Estate Platform', category: 'Web development', stack: 'PHP · MySQL · Booking', repo: 'Real-Estate-Management-System', description: 'A property management platform with listings, agent registration, an admin panel, and booking functionality.' },
-  { title: 'Diabetes Prediction', category: 'Machine learning', stack: 'Pandas · Scikit-learn · Joblib', repo: 'Diabetes-prediction-system', description: 'A machine learning project exploring diabetes prediction from patient health data.' },
 ];
 
 export const socials = [

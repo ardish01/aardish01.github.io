@@ -1,6 +1,6 @@
 # Aardish Duwal's portfolio
 
-A React portfolio with individual routes, animated page transitions, a responsive navigation menu, and filterable projects. Vite builds the app for deployment on Vercel.
+A React portfolio with individual routes, animated page transitions, a responsive navigation menu, and filterable projects. Tailwind CSS provides the styling layer and Vite builds the app for deployment on Vercel.
 
 ## Run locally
 
@@ -35,7 +35,7 @@ The portfolio is an interactive client-side React application. It does not inclu
 - `src/data.js` holds the profile, experience, education, projects, and social links. Current positions are **Full Stack Developer Intern at Nightvision** and **Data Annotator at CloudFactory**, supplied by the portfolio owner; no employment dates are assumed. Education includes SEE at Mount Valley English School, higher secondary computer science at Khwopa College, and the ongoing BCA at Bhaktapur Multiple Campus.
 - `src/pages/` contains each page's content and interactions.
 - `src/App.jsx` owns routing, the shared navigation, and page transitions.
-- `src/styles.css` contains the responsive dark theme and reduced-motion styles.
+- `src/styles.css` contains the Tailwind import, the `@theme` design tokens, base resets, and the glass/noise utilities. Component styling is written with Tailwind utility classes in the components and pages.
 - `assets/images/` contains the portrait and other image assets; imported assets are included in the Vite build.
 
 ## Browser checks

@@ -6,14 +6,15 @@ import About from './pages/About.jsx';
 import Projects from './pages/Projects.jsx';
 import Capabilities from './pages/Capabilities.jsx';
 import Contact from './pages/Contact.jsx';
-import { Arrow } from './components.jsx';
-import { profile } from './data.js';
+import { Arrow, ui } from './components.jsx';
 
 const navigation = [
   ['/about', 'About'], ['/projects', 'Projects'],
   ['/capabilities', 'Capabilities'], ['/contact', 'Contact'],
 ];
 const pageTitles = Object.fromEntries(navigation);
+
+const navLinkClass = `relative flex items-start gap-[.4rem] py-[.8rem] text-[.75rem] transition-colors duration-200 hover:text-accent aria-[current=page]:text-accent after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-expo after:content-[''] aria-[current=page]:after:scale-x-100 max-[800px]:items-center max-[800px]:justify-between max-[800px]:border-b max-[800px]:border-line max-[800px]:py-6 max-[800px]:text-[clamp(1.6rem,6vw,3rem)] max-[800px]:tracking-[-.04em]`;
 
 function Header({ open, setOpen }) {
   const header = useRef(null);
@@ -23,7 +24,8 @@ function Header({ open, setOpen }) {
   useEffect(() => {
     if (!open) return;
     document.body.style.overflow = 'hidden';
-    header.current.querySelector('.site-nav a')?.focus();
+    const firstLink = header.current.querySelector('.site-nav a');
+    const frame = requestAnimationFrame(() => firstLink?.focus());
     function onKeyDown(event) {
       if (event.key === 'Escape') {
         event.preventDefault();
@@ -47,40 +49,41 @@ function Header({ open, setOpen }) {
     document.addEventListener('keydown', onKeyDown);
     window.addEventListener('resize', onResize);
     return () => {
+      cancelAnimationFrame(frame);
       document.body.style.overflow = '';
       document.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('resize', onResize);
     };
   }, [open]);
 
-  return <header ref={header} className="site-header">
-    <Link className="brand" to="/" onClick={close} aria-label="Aardish Duwal, Home">
-      <svg className="brand-logo" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  return <header ref={header} className="absolute inset-x-0 top-0 z-50 flex h-24 items-center gap-8 border-b border-line bg-[linear-gradient(180deg,rgba(7,13,14,.88),rgba(7,13,14,.42))] px-pad shadow-[inset_0_1px_0_rgba(255,255,255,.06)] max-[800px]:h-[4.75rem]">
+    <Link className="group inline-flex min-h-11 items-center text-[1.15rem] font-bold leading-none tracking-[-.04em] whitespace-nowrap max-[800px]:text-[1.05rem]" to="/" onClick={close} aria-label="Aardish Duwal, Home">
+      <svg className="mr-[.7rem] h-[1.65rem] w-[1.65rem] shrink-0 text-ink drop-shadow-[0_0_8px_rgba(95,224,200,.25)] transition duration-300 ease-expo group-hover:scale-[1.06] group-hover:text-accent max-[800px]:mr-[.55rem] max-[800px]:h-[1.45rem] max-[800px]:w-[1.45rem]" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
         <path fillRule="evenodd" d="M20 0C8.95 0 0 8.95 0 20V80C0 91.05 8.95 100 20 100H80C91.05 100 100 91.05 100 80V20C100 8.95 91.05 0 80 0H20ZM50 22L78 78H64L50 48L36 78H22L50 22Z" fill="currentColor" />
       </svg>
-      Aardish Duwal<span>.</span>
+      Aardish Duwal<span className="text-accent">.</span>
     </Link>
-    <button ref={toggle} className="menu-toggle" aria-expanded={open} aria-controls="site-nav"
-      onClick={() => setOpen(!open)}><span>{open ? 'Close' : 'Menu'}</span><i aria-hidden="true" /></button>
-    <nav id="site-nav" className={`site-nav ${open ? 'is-open' : ''}`} aria-label="Main navigation">
-      <NavLink to="/" end onClick={close}>Home</NavLink>
-      {navigation.map(([to, label], index) => <NavLink key={to} to={to} onClick={close}>
-        {label}<span>{String(index + 1).padStart(2, '0')}</span>
+    <button ref={toggle} className="ml-auto hidden items-center gap-4 border-0 bg-transparent pt-[.85rem] pr-0 pb-[.85rem] pl-4 font-mono text-[.75rem] max-[800px]:inline-flex" aria-expanded={open} aria-controls="site-nav"
+      onClick={() => setOpen(!open)}><span>{open ? 'Close' : 'Menu'}</span><i aria-hidden="true" className={`h-[.4rem] w-[1.4rem] border-y border-current transition-transform duration-300 ${open ? '-rotate-45' : ''}`} /></button>
+    <nav id="site-nav" className={`site-nav fixed inset-x-0 top-[4.75rem] bottom-0 flex flex-col gap-0 overflow-y-auto overscroll-contain bg-[linear-gradient(180deg,rgba(7,13,14,.97),rgba(7,13,14,.99))] px-pad pt-8 pb-[calc(2rem+env(safe-area-inset-bottom))] backdrop-blur-[20px] backdrop-saturate-150 transition-[opacity,transform] duration-300 ease-expo min-[801px]:visible min-[801px]:static min-[801px]:ml-auto min-[801px]:flex-row min-[801px]:gap-8 min-[801px]:overflow-visible min-[801px]:bg-none min-[801px]:p-0 min-[801px]:opacity-100 min-[801px]:backdrop-blur-none min-[801px]:backdrop-saturate-100 ${open ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2.5 opacity-0'}`} aria-label="Main navigation">
+      <NavLink to="/" end onClick={close} className={navLinkClass}>Home</NavLink>
+      {navigation.map(([to, label], index) => <NavLink key={to} to={to} onClick={close} className={navLinkClass}>
+        {label}<span className="hidden text-[.7rem]">{String(index + 1).padStart(2, '0')}</span>
       </NavLink>)}
     </nav>
   </header>;
 }
 
 function Footer() {
-  return <footer className="site-footer"><span>© {new Date().getFullYear()} Aardish Duwal</span>
-    <span className="footer-location"><i /> Bhaktapur, Nepal</span>
-    <a href="https://github.com/ardish01" target="_blank" rel="noopener noreferrer">Find me on GitHub <Arrow /></a>
+  return <footer className="mx-pad flex flex-wrap justify-between gap-6 border-t border-line py-8 font-mono text-[.6rem] leading-[1.6] tracking-[.05em] text-muted uppercase max-[800px]:flex-col max-[800px]:items-start max-[800px]:gap-3 max-[800px]:pb-[calc(2rem+env(safe-area-inset-bottom))] max-[800px]:text-[.7rem]"><span>© {new Date().getFullYear()} Aardish Duwal</span>
+    <span className="flex items-center gap-[.6rem]"><i className="h-[.4rem] w-[.4rem] rounded-full bg-accent" /> Bhaktapur, Nepal</span>
+    <a className="inline-flex gap-4 hover:text-accent max-[800px]:min-h-11 max-[800px]:items-center" href="https://github.com/ardish01" target="_blank" rel="noopener noreferrer">Find me on GitHub <Arrow /></a>
   </footer>;
 }
 
 function NotFound() {
-  return <div className="page-shell not-found"><p className="eyebrow">404 / A little off course</p>
-    <h1>Let’s get<br /><em>you back.</em></h1><Link className="button button-primary" to="/">Back home <Arrow /></Link>
+  return <div className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1440px] px-pad pt-20 pb-20 max-[800px]:pt-12"><p className={ui.eyebrow}>404 / A little off course</p>
+    <h1 className="my-8 text-[clamp(3rem,5.5vw,5.5rem)] font-extrabold leading-[1.1] tracking-[-.055em]">Let’s get<br /><em className="not-italic text-accent">you back.</em></h1><Link className={ui.primaryButton} to="/">Back home <Arrow className="text-[1.3rem]" /></Link>
   </div>;
 }
 
@@ -94,6 +97,7 @@ function AnimatedPage({ location, focusOnEntry, menuOpen }) {
   }, [location.pathname]);
 
   return <motion.main ref={main} id="main" tabIndex={-1} inert={menuOpen}
+    className="relative min-h-svh pt-24 focus:outline-none max-[800px]:pt-[4.75rem]"
     initial="initial" animate="enter" exit="exit"
     variants={{ initial: { opacity: 0, y: reduced ? 0 : 18 }, enter: { opacity: 1, y: 0 }, exit: { opacity: 0, y: reduced ? 0 : -12 } }}
     transition={{ duration: reduced ? 0 : 0.26, ease: [0.22, 1, 0.36, 1] }}
@@ -120,7 +124,7 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => { setMenuOpen(false); }, [location.key]);
   return <>
-    <a className="skip-link" href="#main">Skip to content</a>
+    <a className="fixed top-4 left-4 z-[100] -translate-y-[200%] bg-accent p-4 text-bg focus:translate-y-0" href="#main">Skip to content</a>
     <div className="ambient-light" aria-hidden="true" />
     <div className="noise" aria-hidden="true" />
     <Header open={menuOpen} setOpen={setMenuOpen} />
