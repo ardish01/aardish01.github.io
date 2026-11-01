@@ -4,6 +4,32 @@ import { education, experience, profile } from '../data.js';
 import portraitSmall from '../../assets/images/aardish-portrait-480.webp';
 import portraitLarge from '../../assets/images/aardish-portrait-960.webp';
 
+const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function formatExperienceDates(start) {
+  if (!start) return { dateRange: 'Present', duration: '' };
+  const [sYear, sMonth] = start.split('-').map(Number);
+  const now = new Date();
+  const cYear = now.getFullYear();
+  const cMonth = now.getMonth() + 1;
+
+  const totalMonths = Math.max(1, (cYear - sYear) * 12 + (cMonth - sMonth) + 1);
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+
+  let duration = '';
+  if (years === 0) {
+    duration = `${months} ${months === 1 ? 'mo' : 'mos'}`;
+  } else if (months === 0) {
+    duration = `${years} ${years === 1 ? 'yr' : 'yrs'}`;
+  } else {
+    duration = `${years} ${years === 1 ? 'yr' : 'yrs'} ${months} ${months === 1 ? 'mo' : 'mos'}`;
+  }
+
+  const dateRange = `${MONTH_NAMES[sMonth - 1]} ${sYear} – Present`;
+  return { dateRange, duration };
+}
+
 export default function About() {
   const [tapped, pulse] = useTapPulse();
   return (
@@ -13,7 +39,7 @@ export default function About() {
           <p className={`${ui.eyebrow} mb-6`}>01 / About me</p>
           <h1 id="about-title" className="mb-7 text-[clamp(2.8rem,5.2vw,5rem)] font-extrabold leading-[1.1] tracking-[-.04em] [word-spacing:0.04em] [&_em]:not-italic [&_em]:text-accent max-[800px]:text-[clamp(2.6rem,8.7vw,4.5rem)]">Curiosity, turned<br />into <em>code.</em></h1>
           <p className="mt-5 text-[1.2rem] leading-[1.9] text-ink">I’m {profile.name} — a developer and data enthusiast based in {profile.location}.</p>
-          <p className="mt-5 text-[1.05rem] leading-[1.9] text-muted">I work as a {profile.role.toLowerCase()} at {profile.company} and a data annotator at CloudFactory. Alongside work, I’m pursuing a Bachelor of Computer Applications.</p>
+          <p className="mt-5 text-[1.05rem] leading-[1.9] text-muted">I work as a {profile.role.toLowerCase()} at {profile.company} and a data specialist at CloudFactory. Alongside work, I’m pursuing a Bachelor of Computer Applications.</p>
           <p className="mt-5 text-[1.05rem] leading-[1.9] text-muted">For me, technology is a way to make complex things clearer, connect ideas, and build something useful.</p>
           <a className={`${ui.textLink} mt-6`} href="#experience">Explore my journey <Arrow diagonal={false} /></a>
         </Reveal>
@@ -35,24 +61,37 @@ export default function About() {
           <p className="mt-5 max-w-[44rem] text-[1.1rem] leading-[1.8] text-muted">Two parts of my journey: building for the web and working with data.</p>
         </Reveal>
         <div className="grid grid-cols-2 gap-6 max-[800px]:grid-cols-1 max-[800px]:gap-6">
-          {experience.map(({ role, company, status, logo }, index) => (
-            <Reveal key={company} delay={index * 0.08}>
-              <article className="glass h-full rounded-[22px] border border-line p-9 transition duration-300 ease-expo pointer-fine:hover:-translate-y-1 pointer-fine:hover:border-accent/30 max-[800px]:p-6">
-                <div className="mb-8 flex items-center justify-between gap-4">
-                  <span className="grid h-13 w-13 place-items-center overflow-hidden rounded-xl border border-accent/30 bg-black/35 p-0 text-base font-extrabold text-accent shadow-[inset_0_1px_0_rgba(255,255,255,.10)]">
-                    {logo ? (
-                      <img src={logo} alt={`${company} logo`} className="block h-full w-full rounded-[11px] object-cover" width="52" height="52" />
-                    ) : (
-                      <span aria-hidden="true">{company === 'Nightvision' ? 'N' : 'CF'}</span>
-                    )}
-                  </span>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white/[.035] px-[.7rem] py-[.45rem] text-[.72rem] text-muted shadow-[inset_0_1px_0_rgba(255,255,255,.08)]"><i className="h-[.35rem] w-[.35rem] rounded-full bg-accent" />{status}</span>
-                </div>
-                <h3 className="text-[2rem] tracking-[-.035em]">{company}</h3><p className="mt-[.65rem] mb-6 text-[1.1rem] leading-[1.6] text-muted">{role}</p>
-                <span className="font-mono text-[.72rem] tracking-[.08em] text-accent uppercase">{company === 'Nightvision' ? 'Web development' : 'Data annotation'}</span>
-              </article>
-            </Reveal>
-          ))}
+          {experience.map(({ role, company, type, place, start, logo }, index) => {
+            const { dateRange, duration } = formatExperienceDates(start);
+            const meta = [type, place].filter(Boolean).join(' · ');
+            return (
+              <Reveal key={company} delay={index * 0.08}>
+                <article className="glass h-full rounded-[22px] border border-line p-9 transition duration-300 ease-expo pointer-fine:hover:-translate-y-1 pointer-fine:hover:border-accent/30 max-[800px]:p-6">
+                  <div className="mb-8 flex items-center justify-between gap-4">
+                    <span className="grid h-13 w-13 place-items-center overflow-hidden rounded-xl border border-accent/30 bg-black/35 p-0 text-base font-extrabold text-accent shadow-[inset_0_1px_0_rgba(255,255,255,.10)]">
+                      {logo ? (
+                        <img src={logo} alt={`${company} logo`} className="block h-full w-full rounded-[11px] object-cover" width="52" height="52" />
+                      ) : (
+                        <span aria-hidden="true">{company === 'NightVision' ? 'N' : 'CF'}</span>
+                      )}
+                    </span>
+                    <div className="text-right">
+                      <span className="block font-mono text-[.75rem] text-ink">{dateRange}</span>
+                      <span className="mt-0.5 block font-mono text-[.72rem] text-muted">{duration}</span>
+                    </div>
+                  </div>
+                  <h3 className="text-[2rem] tracking-[-.035em]">{company}</h3>
+                  <p className="mt-[.65rem] text-[1.1rem] leading-[1.6] text-muted">{role}</p>
+                  {meta && (
+                    <p className="mt-1 font-mono text-[.72rem] text-muted/80">{meta}</p>
+                  )}
+                  <div className="mt-6">
+                    <span className="font-mono text-[.72rem] tracking-[.08em] text-accent uppercase">{company === 'NightVision' ? 'Web development' : 'Data annotation'}</span>
+                  </div>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 

@@ -7,8 +7,8 @@ const distDir = resolve(__dirname, 'dist');
 const siteUrl = 'https://www.aardishduwal.com.np';
 
 const pages = [
-  { path: '/', title: 'Aardish Duwal — Full Stack Developer & Data Specialist', desc: 'Portfolio of Aardish Duwal, a full stack developer and data annotator based in Bhaktapur, Nepal, building for the web and exploring machine learning.', priority: '1.0' },
-  { path: '/about', title: 'About — Aardish Duwal', desc: 'Learn about Aardish Duwal, a full stack developer and data annotator based in Bhaktapur, Nepal.', priority: '0.8' },
+  { path: '/', title: 'Aardish Duwal — Full Stack Developer & Data Specialist', desc: 'Portfolio of Aardish Duwal, a full stack developer and data specialist based in Bhaktapur, Nepal, building for the web and exploring machine learning.', priority: '1.0' },
+  { path: '/about', title: 'About — Aardish Duwal', desc: 'Learn about Aardish Duwal, a full stack developer and data specialist based in Bhaktapur, Nepal.', priority: '0.8' },
   { path: '/projects', title: 'Projects — Aardish Duwal', desc: 'Selected work: web platforms, predictive models, and data explorations by Aardish Duwal.', priority: '0.8' },
   { path: '/capabilities', title: 'Capabilities — Aardish Duwal', desc: 'Tools and technologies: TypeScript, React, Python, SQL, and more.', priority: '0.8' },
   { path: '/contact', title: 'Contact — Aardish Duwal', desc: 'Get in touch with Aardish Duwal — Full Stack Developer & Data Specialist in Bhaktapur, Nepal.', priority: '0.8' },
@@ -53,7 +53,7 @@ function buildHeadFor(path) {
       "jobTitle": "Full Stack Developer",
       "worksFor": {
         "@type": "Organization",
-        "name": "Nightvision"
+        "name": "NightVision"
       },
       "address": {
         "@type": "PostalAddress",
@@ -65,7 +65,7 @@ function buildHeadFor(path) {
         "https://github.com/ardish01",
         "https://www.linkedin.com/in/aardish-duwal-0371672a2",
         "https://www.instagram.com/aardish_duwal/",
-        "https://twitter.com/aardishduw34120",
+        "https://x.com/aardishduw34120",
         "https://www.facebook.com/profile.php?id=100078305356282"
       ]
     }

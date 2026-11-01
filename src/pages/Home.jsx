@@ -15,7 +15,7 @@ export default function Home() {
           </h1>
           <div className="max-w-[32rem]">
             <p className="text-[clamp(1.75rem,2.6vw,2.5rem)] font-bold leading-[1.2] tracking-[-.02em] text-ink max-md:text-[clamp(2.25rem,8vw,3.25rem)] max-md:leading-[1.08] max-md:tracking-[-.03em] max-md:text-balance">Building for the web. Exploring what data can do.</p>
-            <p className="mt-4 text-base leading-[1.8] text-muted max-md:mt-3 max-md:max-w-[38ch] max-md:leading-[1.6] max-md:text-pretty">I’m a {profile.role.toLowerCase()} at {profile.company} and a data annotator at CloudFactory, with a curiosity for machine learning and making complex things feel simple.</p>
+            <p className="mt-4 text-base leading-[1.8] text-muted max-md:mt-3 max-md:max-w-[38ch] max-md:leading-[1.6] max-md:text-pretty">I’m a {profile.role.toLowerCase()} at {profile.company} and a data specialist at CloudFactory, with a curiosity for machine learning and making complex things feel simple.</p>
           </div>
           <div className="mt-8 flex flex-wrap items-center gap-7 max-md:mt-7 max-md:flex-col max-md:items-stretch max-md:gap-3">
             <Link className={`${ui.primaryButton} max-md:w-full`} to="/projects">Explore my work <Arrow className="text-[1.3rem]" /></Link>

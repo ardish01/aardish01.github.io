@@ -4,14 +4,14 @@ import cloudfactoryLogo from '../assets/images/cloudfactory.webp';
 export const profile = {
   name: 'Aardish Duwal',
   role: 'Full Stack Developer Intern',
-  company: 'Nightvision',
+  company: 'NightVision',
   email: 'aardish01@gmail.com',
   location: 'Bhaktapur, Nepal',
 };
 
 export const experience = [
-  { role: profile.role, company: profile.company, status: 'Current role', logo: nightvisionLogo },
-  { role: 'Data Annotator', company: 'CloudFactory', status: 'Current role', logo: cloudfactoryLogo },
+  { role: profile.role, company: profile.company, type: 'Full-time', place: '', start: '2026-08', logo: nightvisionLogo },
+  { role: 'Data Specialist', company: 'CloudFactory', type: 'Part-time', place: 'Nepal · Remote', start: '2023-11', logo: cloudfactoryLogo },
 ];
 
 export const education = [

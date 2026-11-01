@@ -41,7 +41,7 @@ for (const route of routes) {
         .locator(`a[href="${route.path}"]`)).toHaveAttribute('aria-current', 'page');
     }
     if (['/', '/about'].includes(route.path)) {
-      await expect(page.getByRole('main')).toContainText('Nightvision');
+      await expect(page.getByRole('main')).toContainText('NightVision');
       await expect(page.getByRole('main')).toContainText(/Full Stack Developer Intern/i);
     }
   });
