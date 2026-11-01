@@ -23,7 +23,7 @@ export default function About() {
             <img className="aspect-[4/5] w-full rounded-xl object-cover" src={portraitLarge} srcSet={`${portraitSmall} 480w, ${portraitLarge} 960w`}
               sizes="(max-width: 800px) 90vw, 26rem" alt="Aardish Duwal wearing sunglasses"
               width="960" height="1152" fetchPriority="high" />
-            <figcaption className="flex flex-col gap-[.3rem] px-1 pt-4 pb-1 text-[.8rem]"><span>{profile.name}</span><span className="text-[.7rem] text-muted">{profile.location}</span></figcaption>
+            <figcaption className="flex flex-col gap-[.3rem] px-1 pt-4 pb-1 text-[.8rem]"><span>{profile.name}</span><span className="text-[.72rem] text-muted">{profile.location}</span></figcaption>
           </figure>
         </Reveal>
       </section>
@@ -46,10 +46,10 @@ export default function About() {
                       <span aria-hidden="true">{company === 'Nightvision' ? 'N' : 'CF'}</span>
                     )}
                   </span>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white/[.035] px-[.7rem] py-[.45rem] text-[.65rem] text-muted shadow-[inset_0_1px_0_rgba(255,255,255,.08)]"><i className="h-[.35rem] w-[.35rem] rounded-full bg-accent" />{status}</span>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white/[.035] px-[.7rem] py-[.45rem] text-[.72rem] text-muted shadow-[inset_0_1px_0_rgba(255,255,255,.08)]"><i className="h-[.35rem] w-[.35rem] rounded-full bg-accent" />{status}</span>
                 </div>
                 <h3 className="text-[2rem] tracking-[-.035em]">{company}</h3><p className="mt-[.65rem] mb-6 text-[1.1rem] leading-[1.6] text-muted">{role}</p>
-                <span className="font-mono text-[.7rem] tracking-[.08em] text-accent uppercase">{company === 'Nightvision' ? 'Web development' : 'Data annotation'}</span>
+                <span className="font-mono text-[.72rem] tracking-[.08em] text-accent uppercase">{company === 'Nightvision' ? 'Web development' : 'Data annotation'}</span>
               </article>
             </Reveal>
           ))}

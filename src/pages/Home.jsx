@@ -30,14 +30,14 @@ export default function Home() {
                 sizes="(max-width: 800px) 80vw, 30rem" alt="Black-and-white portrait of Aardish Duwal wearing sunglasses"
                 width="960" height="1152" fetchPriority="high" />
             </div>
-            <figcaption className="mt-4 flex justify-between gap-4 font-mono text-[.6rem] uppercase text-muted max-[800px]:text-[.7rem] max-md:pointer-events-none max-md:absolute max-md:inset-x-0 max-md:bottom-0 max-md:z-10 max-md:mt-0 max-md:items-center max-md:rounded-b-xl max-md:bg-black/45 max-md:px-3 max-md:py-3 max-md:text-[.65rem] max-md:text-white/85 max-md:backdrop-blur-[8px]">
+            <figcaption className="mt-4 flex justify-between gap-4 font-mono text-[.72rem] uppercase text-muted max-[800px]:text-[.7rem] max-md:pointer-events-none max-md:absolute max-md:inset-x-0 max-md:bottom-0 max-md:z-10 max-md:mt-0 max-md:items-center max-md:rounded-b-xl max-md:bg-black/45 max-md:px-3 max-md:py-3 max-md:text-[.72rem] max-md:text-white/85 max-md:backdrop-blur-[8px]">
               <span>Based in {profile.location}</span><span>01 / Portrait</span>
             </figcaption>
-            <span className="absolute -left-9 bottom-14 grid h-24 w-24 -rotate-12 place-items-center rounded-full border-[6px] border-bg bg-[linear-gradient(160deg,var(--color-accent-bright),var(--color-accent)_55%,var(--color-accent-deep))] p-3 text-center font-mono text-[.65rem] leading-[1.4] text-[#04100e] shadow-[inset_0_1px_0_rgba(255,255,255,.65),0_14px_30px_-14px_rgba(95,224,200,.55)] max-[400px]:-left-5 max-[400px]:h-20 max-[400px]:w-20 max-[400px]:text-[.55rem]" aria-hidden="true">Think.<br />Build.<br />Repeat.</span>
+            <span className="absolute -left-9 bottom-14 grid h-24 w-24 -rotate-12 place-items-center rounded-full border-[6px] border-bg bg-[linear-gradient(160deg,var(--color-accent-bright),var(--color-accent)_55%,var(--color-accent-deep))] p-3 text-center font-mono text-[.72rem] leading-[1.4] text-[#04100e] shadow-[inset_0_1px_0_rgba(255,255,255,.65),0_14px_30px_-14px_rgba(95,224,200,.55)] max-[400px]:-left-5 max-[400px]:h-20 max-[400px]:w-20 max-[400px]:text-[.72rem]" aria-hidden="true">Think.<br />Build.<br />Repeat.</span>
           </figure>
         </Reveal>
       </section>
-      <Reveal className="mx-pad flex items-center justify-between gap-8 border-t border-line py-7 font-mono text-[.65rem] leading-[1.8] uppercase tracking-[.07em] text-muted max-[800px]:flex-col max-[800px]:items-start max-[800px]:gap-3 max-[800px]:text-[.7rem]" delay={0.2}>
+      <Reveal className="mx-pad flex items-center justify-between gap-8 border-t border-line py-7 font-mono text-[.72rem] leading-[1.8] uppercase tracking-[.07em] text-muted max-[800px]:flex-col max-[800px]:items-start max-[800px]:gap-3 max-[800px]:text-[.7rem]" delay={0.2}>
         <span className="text-ink">A developer with a data-driven curiosity.</span>
         <span>Web development / Data / Machine learning</span>
       </Reveal>

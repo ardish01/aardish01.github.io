@@ -54,12 +54,12 @@ export default function Contact() {
           <p className="max-w-[30rem] leading-[1.8] text-muted">Have a project in mind, an interesting problem, or just want to connect? I’d love to hear from you.</p>
           <div className="mt-6 max-md:mt-6 max-md:rounded-2xl max-md:border max-md:border-line max-md:bg-white/[.03] max-md:p-4">
             <a className="flex min-h-[52px] items-center justify-between gap-4 border-b border-line py-7 text-[clamp(1.1rem,2.5vw,2rem)] tracking-[-.03em] text-accent max-md:min-h-[52px] max-md:gap-2 max-md:py-2 max-md:text-[1.05rem]" href={`mailto:${profile.email}`}>{profile.email}<Arrow /></a>
-            <button className="glass mt-6 min-h-11 rounded-[10px] border border-line px-4 py-[.8rem] font-mono text-[.7rem] max-md:mt-3 max-md:min-h-[52px] max-md:w-full max-md:rounded-xl max-md:px-4 max-md:py-3 max-md:text-[.75rem]" type="button" onClick={copyEmail} disabled={copying}>
+            <button className="glass mt-6 min-h-11 rounded-[10px] border border-line px-4 py-[.8rem] font-mono text-[.72rem] max-md:mt-3 max-md:min-h-[52px] max-md:w-full max-md:rounded-xl max-md:px-4 max-md:py-3 max-md:text-[.75rem]" type="button" onClick={copyEmail} disabled={copying}>
               {copying ? 'Copying…' : 'Copy email'}
             </button>
             {copyStatus && <p className={`mt-3 text-[.8rem] ${copyStatus === 'Copied!' ? 'text-accent' : 'text-muted'}`} role="status" aria-live="polite">{copyStatus}</p>}
           </div>
-          <div className="mt-12 flex flex-wrap gap-4 font-mono text-[.65rem] text-muted uppercase max-[800px]:mt-8"><span>{profile.location}</span><span>{profile.role} at {profile.company}</span></div>
+          <div className="mt-12 flex flex-wrap gap-4 font-mono text-[.72rem] text-muted uppercase max-[800px]:mt-8"><span>{profile.location}</span><span>{profile.role} at {profile.company}</span></div>
         </Reveal>
         <Reveal delay={0.1}>
           <nav className="border-t border-line max-md:grid max-md:grid-cols-2 max-md:gap-2 max-md:border-t-0" aria-label="Find me online">

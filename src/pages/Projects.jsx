@@ -53,7 +53,7 @@ function ProjectCover({ index, category }) {
       <CoverArt category={category} />
       <span className="absolute bottom-4 left-4 flex items-center gap-2">
         <i className="h-px w-8 bg-accent/70" />
-        <span className="font-mono text-[.55rem] uppercase tracking-[.16em] text-white/50">Selected work</span>
+        <span className="font-mono text-[.72rem] uppercase tracking-[.16em] text-white/50">Selected work</span>
       </span>
     </div>
   );
@@ -76,10 +76,10 @@ export default function Projects() {
           <div className="flex flex-wrap gap-2 max-[560px]:grid max-[560px]:w-full max-[560px]:grid-cols-2 max-[560px]:gap-2" role="group" aria-label="Filter projects by category">
             {categories.map((item) => (
               <button key={item} type="button" aria-pressed={category === item} aria-controls="project-grid" onClick={() => setCategory(item)}
-                className="min-h-11 rounded-[2rem] border border-line bg-white/[.035] px-4 py-[.65rem] text-[.75rem] transition duration-200 hover:border-accent/30 aria-pressed:border-white/30 aria-pressed:bg-[linear-gradient(180deg,var(--color-accent-bright),var(--color-accent)_55%,var(--color-accent-deep))] aria-pressed:text-[#04100e] aria-pressed:shadow-[inset_0_1px_0_rgba(255,255,255,.6),0_10px_24px_-14px_rgba(95,224,200,.7)] max-[560px]:w-full max-[400px]:text-[.7rem]">{item}</button>
+                className="min-h-11 rounded-[2rem] border border-line bg-white/[.035] px-4 py-[.65rem] text-[.75rem] transition duration-200 hover:border-accent/30 aria-pressed:border-white/30 aria-pressed:bg-[linear-gradient(180deg,var(--color-accent-bright),var(--color-accent)_55%,var(--color-accent-deep))] aria-pressed:text-[#04100e] aria-pressed:shadow-[inset_0_1px_0_rgba(255,255,255,.6),0_10px_24px_-14px_rgba(95,224,200,.7)] max-[560px]:w-full max-[400px]:text-[.72rem]">{item}</button>
             ))}
           </div>
-          <p className="font-mono text-[.65rem] whitespace-nowrap text-muted max-[800px]:text-[.7rem]" role="status" aria-live="polite">
+          <p className="font-mono text-[.72rem] whitespace-nowrap text-muted max-[800px]:text-[.72rem]" role="status" aria-live="polite">
             {visibleProjects.length} of {projects.length} projects
           </p>
         </div>
@@ -97,7 +97,7 @@ export default function Projects() {
                     <ProjectCover index={String(projects.indexOf(project) + 1).padStart(2, '0')} category={project.category} />
                   )}
                 </div>
-                <div className="flex items-center justify-between gap-4 font-mono text-[.65rem] leading-[1.5] text-muted uppercase max-md:sr-only">
+                <div className="flex items-center justify-between gap-4 font-mono text-[.72rem] leading-[1.5] text-muted uppercase max-md:sr-only">
                   <span className="text-accent">{String(projects.indexOf(project) + 1).padStart(2, '0')}</span>
                   <span>{project.category}</span>
                 </div>
@@ -115,7 +115,7 @@ export default function Projects() {
                   </div>
                 </div>
                 <p className="text-[.9rem] leading-[1.8] text-muted max-md:line-clamp-3 max-md:text-[.95rem] max-md:leading-[1.55]">{project.description}</p>
-                <p className="my-6 font-mono text-[.65rem] leading-[1.8] text-muted max-[800px]:text-[.7rem] max-md:hidden">{project.stack}</p>
+                <p className="my-6 font-mono text-[.72rem] leading-[1.8] text-muted max-[800px]:text-[.72rem] max-md:hidden">{project.stack}</p>
                 <div className="mt-4 hidden flex-wrap gap-1.5 max-md:flex" aria-label={`${project.title} tech stack`}>
                   {project.stack.split(' · ').map((tag) => (
                     <span className="rounded-md border border-line bg-white/[.04] px-2.5 py-1 font-mono text-[.75rem] leading-none text-[#cfe0dc]" key={tag}>{tag}</span>
