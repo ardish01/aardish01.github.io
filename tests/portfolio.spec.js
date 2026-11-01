@@ -75,12 +75,11 @@ test('header navigation changes pages without reloading the document and support
 test('mobile navigation is keyboard accessible and closes after choosing a page', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  const menu = page.getByRole('button', { name: 'Menu', exact: true });
+  const menu = page.getByRole('button', { name: 'Toggle navigation', exact: true });
   const navigation = page.getByRole('navigation', { name: 'Main navigation' });
   await expect(navigation).not.toBeVisible();
   await menu.click();
-  const close = page.getByRole('button', { name: 'Close', exact: true });
-  await expect(close).toHaveAttribute('aria-expanded', 'true');
+  await expect(menu).toHaveAttribute('aria-expanded', 'true');
   await expect(navigation).toBeVisible();
   await expect(navigation.locator('a').first()).toBeFocused();
   await page.keyboard.press('Escape');
@@ -89,8 +88,8 @@ test('mobile navigation is keyboard accessible and closes after choosing a page'
   await expect(navigation).not.toBeVisible();
 
   await menu.click();
-  await navigation.locator('a[href="/projects"]').click();
-  await expect(page).toHaveURL('/projects');
+  await navigation.locator('a[href="/projects#projects"]').click();
+  await expect(page).toHaveURL('/projects#projects');
   await expect(page).toHaveTitle(/^Projects/);
   await expect(menu).toHaveAttribute('aria-expanded', 'false');
   await expect(navigation).not.toBeVisible();
@@ -134,6 +133,155 @@ for (const width of [320, 390, 768, 1024, 1440]) {
     }
   });
 }
+
+test('mobile header and drawer meet the sticky glass specification', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/about');
+
+  const header = await page.evaluate(() => {
+    const element = document.querySelector('header');
+    const style = getComputedStyle(element);
+    const toggle = element.querySelector('button[aria-controls="mobile-nav"]');
+    const rect = toggle.getBoundingClientRect();
+    const bars = [...toggle.querySelectorAll('span span')];
+    return {
+      position: style.position,
+      top: style.top,
+      height: style.height,
+      paddingTop: style.paddingTop,
+      paddingRight: style.paddingRight,
+      paddingBottom: style.paddingBottom,
+      paddingLeft: style.paddingLeft,
+      zIndex: style.zIndex,
+      backdrop: style.backdropFilter,
+      background: style.backgroundColor,
+      borderBottom: style.borderBottomWidth,
+      borderColor: style.borderBottomColor,
+      toggle: {
+        width: rect.width,
+        height: rect.height,
+        label: toggle.getAttribute('aria-label'),
+        expanded: toggle.getAttribute('aria-expanded'),
+        controls: toggle.getAttribute('aria-controls'),
+      },
+      bars: bars.map((bar) => ({
+        duration: getComputedStyle(bar).transitionDuration,
+        timing: getComputedStyle(bar).transitionTimingFunction,
+      })),
+      mainPaddingTop: getComputedStyle(document.querySelector('main')).paddingTop,
+    };
+  });
+  expect(header.position, 'header is fixed').toBe('fixed');
+  expect(header.top, 'header is pinned to the top').toBe('0px');
+  expect(header.height, 'header is 60px tall').toBe('60px');
+  expect([header.paddingTop, header.paddingRight, header.paddingBottom, header.paddingLeft], 'header padding').toEqual(['0px', '20px', '0px', '20px']);
+  expect(header.zIndex, 'header sits above content').toBe('50');
+  expect(header.backdrop, 'glass blur').toContain('blur(12px)');
+  expect(header.background, 'semi-transparent background').toContain('0.78');
+  expect(header.borderBottom, 'header border width').toBe('1px');
+  expect(header.borderColor, 'header border opacity').toMatch(/\/ 0\.1\)$/);
+  expect(header.toggle).toEqual({
+    width: 44, height: 44, label: 'Toggle navigation', expanded: 'false', controls: 'mobile-nav',
+  });
+  for (const bar of header.bars) {
+    expect(bar.duration, 'icon transition duration').toBe('0.25s');
+    expect(bar.timing, 'icon transition easing').toBe('cubic-bezier(0.22, 1, 0.36, 1)');
+  }
+  expect(header.mainPaddingTop, 'content clears the fixed header').toBe('60px');
+
+  for (const [path, id] of [['/about', 'about'], ['/projects', 'projects'], ['/capabilities', 'capabilities'], ['/contact', 'contact']]) {
+    await page.goto(path);
+    expect(await page.evaluate((target) => getComputedStyle(document.getElementById(target)).scrollMarginTop, id), `${path} scroll margin`).toBe('72px');
+  }
+  await page.goto('/about');
+
+  const toggle = page.getByRole('button', { name: 'Toggle navigation' });
+  await toggle.click();
+  await page.waitForTimeout(300);
+  const open = await page.evaluate(() => {
+    const drawer = document.getElementById('mobile-nav');
+    const style = getComputedStyle(drawer);
+    const links = [...drawer.querySelectorAll('a[href*="#"]')];
+    const toggleButton = document.querySelector('header button[aria-controls="mobile-nav"]');
+    return {
+      bodyOverflow: getComputedStyle(document.body).overflow,
+      drawer: {
+        visibility: style.visibility,
+        opacity: style.opacity,
+        top: style.top,
+        zIndex: style.zIndex,
+        duration: style.transitionDuration,
+        transitionProperty: style.transitionProperty,
+        height: drawer.getBoundingClientRect().height,
+      },
+      links: links.map((link) => ({
+        href: link.getAttribute('href'),
+        height: link.getBoundingClientRect().height,
+        size: getComputedStyle(link).fontSize,
+        weight: getComputedStyle(link).fontWeight,
+        border: getComputedStyle(link).borderBottomWidth,
+        numberSize: getComputedStyle(link.querySelector('span')).fontSize,
+      })),
+      barTransforms: [...toggleButton.querySelectorAll('span span')].map((bar) => getComputedStyle(bar).transform),
+      email: drawer.querySelector('a[href^="mailto:"]')?.getAttribute('href'),
+      github: drawer.querySelector('a[href="https://github.com/ardish01"]')?.textContent.trim(),
+      location: drawer.textContent.includes('Bhaktapur, Nepal'),
+    };
+  });
+  expect(open.bodyOverflow, 'body scroll is locked').toBe('hidden');
+  expect(open.drawer.visibility).toBe('visible');
+  expect(open.drawer.opacity).toBe('1');
+  expect(open.drawer.top, 'drawer starts below the header').toBe('60px');
+  expect(open.drawer.zIndex).toBe('40');
+  expect(open.drawer.duration).toContain('0.25s');
+  expect(open.drawer.transitionProperty, 'drawer slides and fades').toContain('transform');
+  expect(open.drawer.height).toBeGreaterThan(700);
+  expect(open.links.map((link) => link.href), 'drawer routes').toEqual([
+    '/about#about', '/projects#projects', '/capabilities#capabilities', '/contact#contact',
+  ]);
+  expect(open.links.map((link) => link.height), 'drawer row height').toEqual([56, 56, 56, 56]);
+  expect(open.links.every((link) => link.size === '24px' && link.weight === '700'), 'drawer link typography').toBe(true);
+  expect(open.links.map((link) => link.border), 'drawer dividers').toEqual(['1px', '1px', '1px', '0px']);
+  expect(open.links.every((link) => link.numberSize === '12.8px'), 'drawer numbers').toBe(true);
+  expect(open.barTransforms.every((transform) => transform !== 'none'), 'icon morphs to an X').toBe(true);
+  expect(open.email, 'drawer email action').toBe('mailto:aardish01@gmail.com');
+  expect(open.github, 'drawer GitHub action').toContain('Find me on GitHub');
+  expect(open.location, 'drawer location badge').toBe(true);
+
+  await page.locator('#mobile-nav a[href="/projects#projects"]').click();
+  await expect(page).toHaveURL('/projects#projects');
+  await expect(page.getByRole('main')).toBeFocused();
+  const afterClick = await page.evaluate(() => ({
+    bodyOverflow: document.body.style.overflow,
+    expanded: document.querySelector('header button[aria-controls="mobile-nav"]').getAttribute('aria-expanded'),
+    drawerVisibility: getComputedStyle(document.getElementById('mobile-nav')).visibility,
+    scrollMargin: getComputedStyle(document.getElementById('projects')).scrollMarginTop,
+    smooth: getComputedStyle(document.documentElement).scrollBehavior,
+  }));
+  expect(afterClick.bodyOverflow, 'body scroll is unlocked').toBe('');
+  expect(afterClick.expanded, 'drawer closes after a link').toBe('false');
+  expect(afterClick.drawerVisibility).toBe('hidden');
+  expect(afterClick.scrollMargin).toBe('72px');
+  expect(afterClick.smooth, 'smooth scrolling is enabled globally').toBe('smooth');
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+  await page.keyboard.press('Escape');
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(toggle).toBeFocused();
+  expect(await page.evaluate(() => document.body.style.overflow), 'Escape unlocks scroll').toBe('');
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+  await page.setViewportSize({ width: 1024, height: 900 });
+  await expect(toggle).toBeHidden();
+  expect(await page.evaluate(() => document.body.style.overflow), 'resize unlocks scroll').toBe('');
+  await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
+
+  await page.setViewportSize({ width: 768, height: 900 });
+  await expect(toggle).toBeHidden();
+  await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
+});
 
 test('mobile section pages use compact headers and scannable cards', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
@@ -226,8 +374,9 @@ test('mobile section pages use compact headers and scannable cards', async ({ pa
 
   await page.goto('/contact');
   const contact = await page.evaluate(() => {
-    const email = document.querySelector('a[href^="mailto:"]');
-    const copy = document.querySelector('button[type="button"]');
+    const main = document.querySelector('main');
+    const email = main.querySelector('a[href^="mailto:"]');
+    const copy = main.querySelector('button[type="button"]');
     const nav = document.querySelector('nav[aria-label="Find me online"]');
     const socials = [...nav.querySelectorAll('a')];
     const footer = document.querySelector('footer');

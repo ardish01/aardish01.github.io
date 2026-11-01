@@ -10,7 +10,7 @@ const capabilities = [
 
 export default function Capabilities() {
   return (
-    <div className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1440px] px-pad pt-20 max-[800px]:pt-12 max-md:pt-6">
+    <div id="capabilities" className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1440px] px-pad pt-20 max-[800px]:pt-12 max-md:pt-6">
       <PageHeading number="03" label="Capabilities"
         description="A practical toolkit for exploring data, building applications, and working through problems together.">
         The tools behind<br /><em>the work.</em>

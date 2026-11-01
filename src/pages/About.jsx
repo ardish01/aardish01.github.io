@@ -7,7 +7,7 @@ import portraitLarge from '../../assets/images/aardish-portrait-960.webp';
 export default function About() {
   const [tapped, pulse] = useTapPulse();
   return (
-    <div className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1520px] px-pad pt-20 max-[800px]:pt-12">
+    <div id="about" className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1520px] px-pad pt-20 max-[800px]:pt-12">
       <section className="grid min-h-[36rem] grid-cols-[1.25fr_.8fr] items-center gap-[clamp(3rem,8vw,8rem)] pb-16 max-[800px]:min-h-0 max-[800px]:grid-cols-1 max-[800px]:gap-12 max-[800px]:pb-8" aria-labelledby="about-title">
         <Reveal>
           <p className={`${ui.eyebrow} mb-6`}>About me / The story so far</p>

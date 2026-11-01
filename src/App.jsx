@@ -7,45 +7,72 @@ import Projects from './pages/Projects.jsx';
 import Capabilities from './pages/Capabilities.jsx';
 import Contact from './pages/Contact.jsx';
 import { Arrow, ui } from './components.jsx';
+import { profile } from './data.js';
 
 const navigation = [
   ['/about', 'About'], ['/projects', 'Projects'],
   ['/capabilities', 'Capabilities'], ['/contact', 'Contact'],
 ];
 const pageTitles = Object.fromEntries(navigation);
+const drawerNavigation = navigation.map(([path, label], index) => ({
+  path,
+  to: `${path}#${path.slice(1)}`,
+  label,
+  number: String(index + 1).padStart(2, '0'),
+}));
 
-const navLinkClass = `relative flex items-start gap-[.4rem] py-[.8rem] text-[.75rem] transition-colors duration-200 hover:text-accent aria-[current=page]:text-accent after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-expo after:content-[''] aria-[current=page]:after:scale-x-100 max-[800px]:items-center max-[800px]:justify-between max-[800px]:border-b max-[800px]:border-line max-[800px]:py-6 max-[800px]:text-[clamp(1.6rem,6vw,3rem)] max-[800px]:tracking-[-.04em]`;
+const navLinkClass = `relative flex items-start gap-[.4rem] py-[.8rem] text-[.75rem] transition-colors duration-200 hover:text-accent aria-[current=page]:text-accent after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-expo after:content-[''] aria-[current=page]:after:scale-x-100`;
 
 function Header({ open, setOpen }) {
   const header = useRef(null);
+  const drawer = useRef(null);
   const toggle = useRef(null);
-  const close = () => setOpen(false);
+  const location = useLocation();
+  const reduced = useReducedMotion();
+
+  function close() {
+    setOpen(false);
+    document.body.style.overflow = '';
+  }
+
+  function handleSectionLink(path) {
+    close();
+    if (location.pathname.replace(/\/+$/, '') !== path) return;
+    requestAnimationFrame(() => {
+      document.getElementById(path.slice(1))?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+      document.getElementById('main')?.focus({ preventScroll: true });
+    });
+  }
 
   useEffect(() => {
     if (!open) return;
     document.body.style.overflow = 'hidden';
-    const firstLink = header.current.querySelector('.site-nav a');
+    const firstLink = [...(drawer.current?.querySelectorAll('a') ?? [])]
+      .find((link) => link.getClientRects().length > 0);
     const frame = requestAnimationFrame(() => firstLink?.focus());
     function onKeyDown(event) {
       if (event.key === 'Escape') {
         event.preventDefault();
         close();
-        toggle.current.focus();
+        toggle.current?.focus();
       }
       if (event.key === 'Tab') {
-        const elements = [...header.current.querySelectorAll('a, button')];
+        const elements = [
+          ...(header.current?.querySelectorAll('a, button') ?? []),
+          ...(drawer.current?.querySelectorAll('a, button') ?? []),
+        ].filter((element) => element.getClientRects().length > 0 && !element.hasAttribute('disabled'));
         const first = elements[0];
         const last = elements.at(-1);
         if (event.shiftKey && document.activeElement === first) {
           event.preventDefault();
-          last.focus();
+          last?.focus();
         } else if (!event.shiftKey && document.activeElement === last) {
           event.preventDefault();
-          first.focus();
+          first?.focus();
         }
       }
     }
-    function onResize() { if (window.innerWidth > 800) close(); }
+    function onResize() { if (window.innerWidth >= 768) close(); }
     document.addEventListener('keydown', onKeyDown);
     window.addEventListener('resize', onResize);
     return () => {
@@ -56,22 +83,54 @@ function Header({ open, setOpen }) {
     };
   }, [open]);
 
-  return <header ref={header} className="absolute inset-x-0 top-0 z-50 flex h-24 items-center gap-8 border-b border-line bg-[linear-gradient(180deg,rgba(7,13,14,.88),rgba(7,13,14,.42))] px-pad shadow-[inset_0_1px_0_rgba(255,255,255,.06)] max-[800px]:h-[4.75rem]">
-    <Link className="group inline-flex min-h-11 items-center text-[1.15rem] font-bold leading-none tracking-[-.04em] whitespace-nowrap max-[800px]:text-[1.05rem]" to="/" onClick={close} aria-label="Aardish Duwal, Home">
-      <svg className="mr-[.7rem] h-[1.65rem] w-[1.65rem] shrink-0 text-ink drop-shadow-[0_0_8px_rgba(95,224,200,.25)] transition duration-300 ease-expo group-hover:scale-[1.06] group-hover:text-accent max-[800px]:mr-[.55rem] max-[800px]:h-[1.45rem] max-[800px]:w-[1.45rem]" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-        <path fillRule="evenodd" d="M20 0C8.95 0 0 8.95 0 20V80C0 91.05 8.95 100 20 100H80C91.05 100 100 91.05 100 80V20C100 8.95 91.05 0 80 0H20ZM50 22L78 78H64L50 48L36 78H22L50 22Z" fill="currentColor" />
-      </svg>
-      Aardish Duwal<span className="text-accent">.</span>
-    </Link>
-    <button ref={toggle} className="ml-auto hidden items-center gap-4 border-0 bg-transparent pt-[.85rem] pr-0 pb-[.85rem] pl-4 font-mono text-[.75rem] max-[800px]:inline-flex" aria-expanded={open} aria-controls="site-nav"
-      onClick={() => setOpen(!open)}><span>{open ? 'Close' : 'Menu'}</span><i aria-hidden="true" className={`h-[.4rem] w-[1.4rem] border-y border-current transition-transform duration-300 ${open ? '-rotate-45' : ''}`} /></button>
-    <nav id="site-nav" className={`site-nav fixed inset-x-0 top-[4.75rem] bottom-0 flex flex-col gap-0 overflow-y-auto overscroll-contain bg-[linear-gradient(180deg,rgba(7,13,14,.97),rgba(7,13,14,.99))] px-pad pt-8 pb-[calc(2rem+env(safe-area-inset-bottom))] backdrop-blur-[20px] backdrop-saturate-150 transition-[opacity,transform] duration-300 ease-expo min-[801px]:visible min-[801px]:static min-[801px]:ml-auto min-[801px]:flex-row min-[801px]:gap-8 min-[801px]:overflow-visible min-[801px]:bg-none min-[801px]:p-0 min-[801px]:opacity-100 min-[801px]:backdrop-blur-none min-[801px]:backdrop-saturate-100 ${open ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2.5 opacity-0'}`} aria-label="Main navigation">
-      <NavLink to="/" end onClick={close} className={navLinkClass}>Home</NavLink>
-      {navigation.map(([to, label], index) => <NavLink key={to} to={to} onClick={close} className={navLinkClass}>
-        {label}<span className="hidden text-[.7rem]">{String(index + 1).padStart(2, '0')}</span>
-      </NavLink>)}
+  return <>
+    <header ref={header} className="absolute inset-x-0 top-0 z-50 flex h-24 items-center gap-8 border-b border-line bg-[linear-gradient(180deg,rgba(7,13,14,.88),rgba(7,13,14,.42))] px-pad shadow-[inset_0_1px_0_rgba(255,255,255,.06)] max-md:fixed max-md:h-[60px] max-md:border-white/10 max-md:bg-none max-md:bg-[rgba(7,13,14,.78)] max-md:px-5 max-md:backdrop-blur-[12px] max-md:backdrop-saturate-150">
+      <Link className="group inline-flex min-h-11 items-center text-[1.15rem] font-bold leading-none tracking-[-.04em] whitespace-nowrap max-md:text-[1.05rem]" to="/" onClick={close} aria-label="Aardish Duwal, Home">
+        <svg className="mr-[.7rem] h-[1.65rem] w-[1.65rem] shrink-0 text-ink drop-shadow-[0_0_8px_rgba(95,224,200,.25)] transition duration-300 ease-expo group-hover:scale-[1.06] group-hover:text-accent max-md:mr-[.55rem] max-md:h-[1.45rem] max-md:w-[1.45rem]" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <path fillRule="evenodd" d="M20 0C8.95 0 0 8.95 0 20V80C0 91.05 8.95 100 20 100H80C91.05 100 100 91.05 100 80V20C100 8.95 91.05 0 80 0H20ZM50 22L78 78H64L50 48L36 78H22L50 22Z" fill="currentColor" />
+        </svg>
+        Aardish Duwal<span className="text-accent">.</span>
+      </Link>
+      <nav className="ml-auto hidden items-center gap-8 md:flex" aria-label="Main navigation">
+        <NavLink to="/" end className={navLinkClass}>Home</NavLink>
+        {navigation.map(([to, label]) => <NavLink key={to} to={to} className={navLinkClass}>{label}</NavLink>)}
+      </nav>
+      <button ref={toggle} type="button"
+        className="ml-auto hidden h-11 w-11 place-items-center rounded-full border border-line bg-white/[.04] text-ink transition-colors duration-200 hover:border-accent/40 hover:text-accent max-md:grid"
+        aria-label="Toggle navigation" aria-expanded={open} aria-controls="mobile-nav"
+        onClick={() => setOpen(!open)}>
+        <span aria-hidden="true" className="relative block h-4 w-5">
+          <span className={`absolute top-[3px] left-0 h-[1.5px] w-full rounded-full bg-current transition-transform duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? '[transform:translateY(4px)_rotate(45deg)]' : ''}`} />
+          <span className={`absolute bottom-[3px] left-0 h-[1.5px] w-full rounded-full bg-current transition-transform duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? '[transform:translateY(-4px)_rotate(-45deg)]' : ''}`} />
+        </span>
+      </button>
+    </header>
+    <nav ref={drawer} id="mobile-nav"
+      className={`fixed inset-x-0 top-[60px] bottom-0 z-40 flex flex-col overflow-y-auto overscroll-contain bg-[linear-gradient(180deg,rgba(7,13,14,.98),rgba(7,13,14,.99))] px-5 pt-4 pb-[calc(2rem+env(safe-area-inset-bottom))] backdrop-blur-[12px] transition-[opacity,transform] duration-[250ms] ease-out md:hidden ${open ? 'visible opacity-100 [transform:translateY(0)]' : 'invisible opacity-0 [transform:translateY(-8px)]'}`}
+      aria-label="Main navigation">
+      <div className="flex flex-col">
+        {drawerNavigation.map(({ path, to, label, number }) => (
+          <NavLink key={path} to={to} onClick={() => handleSectionLink(path)}
+            className="relative flex min-h-14 items-center gap-4 border-b border-line py-3 text-[1.5rem] font-bold leading-[1.2] tracking-[-.02em] transition-colors duration-200 last:border-b-0 hover:text-accent aria-[current=page]:text-accent">
+            <span aria-hidden="true" className="font-mono text-[.8rem] font-normal tracking-normal text-muted/70">{number}</span>
+            {label}
+          </NavLink>
+        ))}
+      </div>
+      <div className="mt-auto border-t border-line pt-5">
+        <p className="mb-1 font-mono text-[.6rem] uppercase tracking-[.14em] text-muted/70">Quick contact</p>
+        <a className="flex min-h-11 items-center justify-between gap-4 border-b border-line py-3 text-[.95rem] text-accent transition-colors duration-200 hover:text-accent-bright" href={`mailto:${profile.email}`} onClick={close}>
+          {profile.email}<Arrow />
+        </a>
+        <a className="flex min-h-11 items-center justify-between gap-4 py-3 text-[.85rem] text-muted transition-colors duration-200 hover:text-accent" href="https://github.com/ardish01" target="_blank" rel="noopener noreferrer" onClick={close}>
+          Find me on GitHub <Arrow />
+        </a>
+        <span className="mt-4 inline-flex min-h-8 items-center gap-2 rounded-full border border-line bg-white/[.04] px-3 py-1.5 font-mono text-[.65rem] uppercase tracking-[.08em] text-muted">
+          <i className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" /> {profile.location}
+        </span>
+      </div>
     </nav>
-  </header>;
+  </>;
 }
 
 function Footer() {
@@ -92,13 +151,21 @@ function AnimatedPage({ location, focusOnEntry, menuOpen }) {
   const reduced = useReducedMotion();
   const main = useRef(null);
   useLayoutEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
     const path = location.pathname.replace(/\/+$/, '') || '/';
     document.title = path === '/' ? 'Aardish Duwal' : `${pageTitles[path] || 'Page not found'} — Aardish Duwal`;
-  }, [location.pathname]);
+    const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
+    if (!target) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return undefined;
+    }
+    const frame = requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [location.pathname, location.hash, reduced]);
 
   return <motion.main ref={main} id="main" tabIndex={-1} inert={menuOpen}
-    className="relative min-h-svh pt-24 focus:outline-none max-[800px]:pt-[4.75rem]"
+    className="relative min-h-svh pt-24 focus:outline-none max-md:pt-[60px]"
     initial="initial" animate="enter" exit="exit"
     variants={{ initial: { opacity: 0, y: reduced ? 0 : 18 }, enter: { opacity: 1, y: 0 }, exit: { opacity: 0, y: reduced ? 0 : -12 } }}
     transition={{ duration: reduced ? 0 : 0.26, ease: [0.22, 1, 0.36, 1] }}

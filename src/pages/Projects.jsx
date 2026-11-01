@@ -66,7 +66,7 @@ export default function Projects() {
   const visibleProjects = projects.filter((project) => category === 'All projects' || project.category === category);
 
   return (
-    <div className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1440px] px-pad pt-20 max-[800px]:pt-12 max-md:pt-6">
+    <div id="projects" className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1440px] px-pad pt-20 max-[800px]:pt-12 max-md:pt-6">
       <PageHeading number="02" label="Selected work"
         description="A collection of web platforms, predictive models, and data explorations. Built to turn an interesting problem into something useful.">
         Ideas, put<br /><em>into practice.</em>

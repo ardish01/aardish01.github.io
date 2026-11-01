@@ -42,7 +42,7 @@ export default function Contact() {
   }
 
   return (
-    <div className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1440px] px-pad pt-20 max-[800px]:pt-12 max-md:pt-6">
+    <div id="contact" className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1440px] px-pad pt-20 max-[800px]:pt-12 max-md:pt-6">
       <PageHeading number="04" label="Contact">
         Good things<br /><em>start with a hello.</em>
       </PageHeading>

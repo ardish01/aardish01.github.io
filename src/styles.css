@@ -16,8 +16,9 @@
 }
 
 @layer base {
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body { @apply bg-bg font-sans text-ink; }
+  #about, #projects, #capabilities, #contact { scroll-margin-top: 72px; }
   ::selection { @apply bg-accent text-bg; }
   :focus-visible { @apply outline-2 outline-offset-6 outline-accent; }
 
