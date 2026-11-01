@@ -347,7 +347,7 @@ test('mobile section pages use compact headers and scannable cards', async ({ pa
   });
   expect(project.columns.trim().split(/\s+/), 'projects are a single column').toHaveLength(1);
   expect(project.gap, 'project cards are 24px apart').toBe('24px');
-  expect(project.coverAspect, 'project cover is 16:10').toBe('16 / 10');
+  expect(project.coverAspect, 'project cover is 21:9 on mobile').toBe('21 / 9');
   expect(project.coverRadius, 'project cover radius').toBe('10px');
   expect(project.titleSize, 'project title size').toBe('20px');
   expect(project.titleWeight, 'project title weight').toBe('700');

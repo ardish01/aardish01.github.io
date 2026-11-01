@@ -45,7 +45,7 @@ function CoverArt({ category }) {
 
 function ProjectCover({ index, category }) {
   return (
-    <div className="relative aspect-[16/10] overflow-hidden rounded-[10px] border border-white/10 bg-[radial-gradient(circle_at_18%_15%,rgba(95,224,200,.20),transparent_55%),linear-gradient(145deg,#0b1917,#07100f_60%,#0a1416)]">
+    <div className="relative h-full w-full overflow-hidden rounded-[10px] bg-[radial-gradient(circle_at_18%_15%,rgba(95,224,200,.20),transparent_55%),linear-gradient(145deg,#0b1917,#07100f_60%,#0a1416)]">
       <span className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-accent/10 blur-3xl" />
       <span className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:28px_28px]" />
       <span className="absolute -right-2 -bottom-4 text-[5rem] font-extrabold leading-none tracking-[-.08em] text-white/[.06]">{index}</span>
@@ -66,7 +66,7 @@ export default function Projects() {
   const visibleProjects = projects.filter((project) => category === 'All projects' || project.category === category);
 
   return (
-    <div id="projects" className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1440px] px-pad pt-20 max-[800px]:pt-12 max-md:pt-6">
+    <div id="projects" className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1520px] px-pad pt-20 max-[800px]:pt-12 max-md:pt-6">
       <PageHeading number="02" label="Selected work"
         description="A collection of web platforms, predictive models, and data explorations. Built to turn an interesting problem into something useful.">
         Ideas, put<br /><em>into practice.</em>
@@ -83,14 +83,14 @@ export default function Projects() {
             {visibleProjects.length} of {projects.length} projects
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-6 pt-4 max-[800px]:grid-cols-1" id="project-grid">
+        <div className="grid grid-cols-1 min-[801px]:grid-cols-2 min-[1100px]:grid-cols-3 gap-6 pt-4" id="project-grid">
           <AnimatePresence mode="popLayout" initial={false}>
             {visibleProjects.map((project) => (
-              <motion.article key={project.repo} className="glass relative flex flex-col rounded-[20px] border border-line p-8 transition duration-300 hover:border-accent/30 pointer-fine:hover:-translate-y-1 max-[800px]:p-6 max-[400px]:p-5" layout={!reduced}
+              <motion.article key={project.repo} className="glass relative flex h-full flex-col rounded-[20px] border border-line p-6 transition duration-300 hover:border-accent/30 pointer-fine:hover:-translate-y-1 max-[400px]:p-5" layout={!reduced}
                 initial={isMobile ? false : { opacity: 0, y: reduced ? 0 : 16 }} animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: reduced ? 0 : -8 }}
                 transition={{ duration: reduced ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}>
-                <div className="aspect-[16/10] overflow-hidden rounded-[10px] border border-white/10 mb-6" aria-hidden="true">
+                <div className="aspect-[16/10] max-md:aspect-[21/9] overflow-hidden rounded-[10px] border border-white/10 mb-6 max-md:mb-3" aria-hidden="true">
                   {project.image ? (
                     <img className="h-full w-full object-cover" src={project.image} alt="" loading="lazy" width="800" height="500" />
                   ) : (
@@ -101,8 +101,8 @@ export default function Projects() {
                   <span className="text-accent">{String(projects.indexOf(project) + 1).padStart(2, '0')}</span>
                   <span>{project.category}</span>
                 </div>
-                <div className="mt-8 mb-4 flex items-start justify-between gap-3 max-md:mt-4 max-md:mb-2">
-                  <h2 className="text-[clamp(1.6rem,2.5vw,2.5rem)] font-medium tracking-[-.04em] max-md:text-[1.25rem] max-md:font-bold max-md:leading-[1.3] max-md:tracking-[-.02em]">{project.title}</h2>
+                <div className="mt-5 mb-4 flex items-start justify-between gap-3 max-md:mt-4 max-md:mb-2">
+                  <h2 className="text-[clamp(1.25rem,1.7vw,1.6rem)] font-medium tracking-[-.04em] max-md:font-bold max-md:leading-[1.3] max-md:tracking-[-.02em]">{project.title}</h2>
                   <div className="hidden shrink-0 items-center gap-1 max-md:flex">
                     <a className="grid h-11 w-11 place-items-center rounded-full border border-line bg-white/[.04] text-muted transition hover:border-accent/40 hover:text-accent" href={`https://github.com/ardish01/${project.repo}`} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} on GitHub (opens in a new tab)`}>
                       <GitHubIcon className="h-[18px] w-[18px]" />
@@ -115,19 +115,19 @@ export default function Projects() {
                   </div>
                 </div>
                 <p className="text-[.9rem] leading-[1.8] text-muted max-md:line-clamp-3 max-md:text-[.95rem] max-md:leading-[1.55]">{project.description}</p>
-                <p className="my-6 font-mono text-[.72rem] leading-[1.8] text-muted max-md:hidden">{project.stack}</p>
+                <p className="my-4 font-mono text-[.72rem] leading-[1.8] text-muted max-md:hidden">{project.stack}</p>
                 <div className="mt-4 hidden flex-wrap gap-1.5 max-md:flex" aria-label={`${project.title} tech stack`}>
                   {project.stack.split(' · ').map((tag) => (
                     <span className="rounded-md border border-line bg-white/[.04] px-2.5 py-1 font-mono text-[.75rem] leading-none text-[#cfe0dc]" key={tag}>{tag}</span>
                   ))}
                 </div>
                 <div className="mt-auto flex min-h-11 items-center gap-6 border-t border-line pt-4 text-[.8rem] max-md:hidden">
-                  <a className="inline-flex items-center gap-2 hover:text-accent transition-colors max-md:hidden" href={`https://github.com/ardish01/${project.repo}`}
+                  <a className="inline-flex min-h-11 items-center gap-2 hover:text-accent transition-colors max-md:hidden" href={`https://github.com/ardish01/${project.repo}`}
                     target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} on GitHub (opens in a new tab)`}>
                     View on GitHub <Arrow className="text-[1.1rem] text-accent" />
                   </a>
                   {project.demo && (
-                    <a className="inline-flex items-center gap-1.5 text-accent hover:text-accent-bright transition-colors" href={project.demo}
+                    <a className="inline-flex min-h-11 items-center gap-1.5 text-accent hover:text-accent-bright transition-colors" href={project.demo}
                       target="_blank" rel="noopener noreferrer" aria-label={`Open the ${project.title} live demo (opens in a new tab)`}>
                       Live demo <ExternalIcon className="h-4 w-4" />
                     </a>
