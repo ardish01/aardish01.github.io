@@ -33,6 +33,6 @@ export const socials = [
   ['GitHub', 'https://github.com/ardish01'],
   ['LinkedIn', 'https://www.linkedin.com/in/aardish-duwal-0371672a2'],
   ['Instagram', 'https://www.instagram.com/aardish_duwal/'],
-  ['Twitter', 'https://twitter.com/aardishduw34120'],
+  ['X', 'https://x.com/aardishduw34120'],
   ['Facebook', 'https://www.facebook.com/profile.php?id=100078305356282'],
 ];
