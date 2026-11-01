@@ -24,8 +24,8 @@ export default function Home() {
         </Reveal>
         <Reveal className="relative w-full max-w-[30rem] justify-self-end max-[800px]:mx-auto max-[800px]:w-[min(84%,24rem)] max-[800px]:justify-self-center max-[400px]:w-[90%]" delay={0.12}>
           <figure className="relative m-0">
-            <div onPointerUp={pulse} className="group relative aspect-[4/4.8] overflow-hidden rounded-[26px] border border-white/15 bg-[linear-gradient(158deg,rgba(255,255,255,.10),rgba(255,255,255,.03)_50%,rgba(95,224,200,.06))] p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,.16),0_40px_80px_-40px_rgba(0,0,0,.95),0_0_70px_-24px_rgba(95,224,200,.20)] max-md:aspect-[4/5] max-md:rounded-xl max-md:p-0">
-              <img className={`h-full w-full rounded-[17px] object-cover object-[center_28%] transition-transform duration-1000 ease-expo pointer-fine:group-hover:scale-[1.04] max-md:rounded-xl ${tapped ? 'scale-[1.05]' : ''}`}
+            <div onPointerUp={pulse} className="group relative aspect-[4/4.8] overflow-hidden rounded-[26px] border border-white/15 max-md:aspect-[4/5] max-md:rounded-xl">
+              <img className={`h-full w-full rounded-[17px] object-cover object-[center_28%] max-md:rounded-xl ${tapped ? 'scale-[1.05]' : ''}`}
                 src={portraitLarge} srcSet={`${portraitSmall} 480w, ${portraitLarge} 960w`}
                 sizes="(max-width: 800px) 80vw, 30rem" alt="Black-and-white portrait of Aardish Duwal wearing sunglasses"
                 width="960" height="1152" fetchPriority="high" />
