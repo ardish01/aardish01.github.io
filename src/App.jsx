@@ -86,7 +86,7 @@ function Header({ open, setOpen }) {
   }, [open]);
 
   return <>
-    <header ref={header} className="absolute inset-x-0 top-0 z-50 flex h-24 items-center gap-8 border-b border-line bg-[linear-gradient(180deg,rgba(7,13,14,.88),rgba(7,13,14,.42))] px-pad shadow-[inset_0_1px_0_rgba(255,255,255,.06)] max-md:fixed max-md:h-[60px] max-md:border-white/10 max-md:bg-none max-md:bg-[rgba(7,13,14,.78)] max-md:px-5 max-md:backdrop-blur-[12px] max-md:backdrop-saturate-150">
+    <header ref={header} className="fixed inset-x-0 top-0 z-50 flex h-24 items-center gap-8 border-b border-line bg-[linear-gradient(180deg,rgba(7,13,14,.95),rgba(7,13,14,.85))] px-pad shadow-[inset_0_1px_0_rgba(255,255,255,.06),0_4px_24px_-8px_rgba(0,0,0,.6)] backdrop-blur-[12px] backdrop-saturate-150 max-md:h-[60px] max-md:border-white/10 max-md:bg-none max-md:bg-[rgba(7,13,14,.78)] max-md:px-5">
       <Link className="group inline-flex min-h-11 items-center text-[1.15rem] font-bold leading-none tracking-[-.04em] whitespace-nowrap max-md:text-[1.05rem]" to="/" onClick={close} aria-label="Aardish Duwal, Home">
         <svg className="mr-[.7rem] h-[1.65rem] w-[1.65rem] shrink-0 text-ink drop-shadow-[0_0_8px_rgba(95,224,200,.25)] transition duration-300 ease-expo group-hover:scale-[1.06] group-hover:text-accent max-md:mr-[.55rem] max-md:h-[1.45rem] max-md:w-[1.45rem]" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
           <path fillRule="evenodd" d="M20 0C8.95 0 0 8.95 0 20V80C0 91.05 8.95 100 20 100H80C91.05 100 100 91.05 100 80V20C100 8.95 91.05 0 80 0H20ZM50 22L78 78H64L50 48L36 78H22L50 22Z" fill="currentColor" />
@@ -167,7 +167,7 @@ function AnimatedPage({ location, focusOnEntry, menuOpen }) {
   }, [location.pathname, location.hash, reduced]);
 
   return <motion.main ref={main} id="main" tabIndex={-1} inert={menuOpen}
-    className="relative min-h-svh pt-24 focus:outline-none max-md:pt-[60px]"
+    className="relative min-h-svh pt-24 md:pt-24 max-md:pt-[60px]"
     initial="initial" animate="enter" exit="exit"
     variants={{ initial: { opacity: 0, y: reduced ? 0 : 18 }, enter: { opacity: 1, y: 0 }, exit: { opacity: 0, y: reduced ? 0 : -12 } }}
     transition={{ duration: reduced ? 0 : 0.26, ease: [0.22, 1, 0.36, 1] }}
