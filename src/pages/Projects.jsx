@@ -90,11 +90,9 @@ export default function Projects() {
                 initial={isMobile ? false : { opacity: 0, y: reduced ? 0 : 16 }} animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: reduced ? 0 : -8 }}
                 transition={{ duration: reduced ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}>
-                <div className="hidden max-md:block" aria-hidden="true">
+                <div className="aspect-[16/10] overflow-hidden rounded-[10px] border border-white/10 mb-6" aria-hidden="true">
                   {project.image ? (
-                    <div className="aspect-[16/10] overflow-hidden rounded-[10px] border border-white/10">
-                      <img className="h-full w-full object-cover" src={project.image} alt="" loading="lazy" width="800" height="500" />
-                    </div>
+                    <img className="h-full w-full object-cover" src={project.image} alt="" loading="lazy" width="800" height="500" />
                   ) : (
                     <ProjectCover index={String(projects.indexOf(project) + 1).padStart(2, '0')} category={project.category} />
                   )}
@@ -116,17 +114,25 @@ export default function Projects() {
                     )}
                   </div>
                 </div>
-                <p className="text-[.9rem] leading-[1.8] text-muted max-md:line-clamp-2 max-md:text-[.95rem] max-md:leading-[1.55]">{project.description}</p>
+                <p className="text-[.9rem] leading-[1.8] text-muted max-md:line-clamp-3 max-md:text-[.95rem] max-md:leading-[1.55]">{project.description}</p>
                 <p className="my-6 font-mono text-[.65rem] leading-[1.8] text-muted max-[800px]:text-[.7rem] max-md:hidden">{project.stack}</p>
                 <div className="mt-4 hidden flex-wrap gap-1.5 max-md:flex" aria-label={`${project.title} tech stack`}>
                   {project.stack.split(' · ').map((tag) => (
                     <span className="rounded-md border border-line bg-white/[.04] px-2.5 py-1 font-mono text-[.75rem] leading-none text-[#cfe0dc]" key={tag}>{tag}</span>
                   ))}
                 </div>
-                <a className="mt-auto flex min-h-11 items-center justify-between gap-4 border-t border-line pt-4 text-[.8rem] hover:text-accent max-md:hidden" href={`https://github.com/ardish01/${project.repo}`}
-                  target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} on GitHub (opens in a new tab)`}>
-                  View on GitHub <Arrow className="text-[1.3rem] text-accent" />
-                </a>
+                <div className="mt-auto flex min-h-11 items-center gap-6 border-t border-line pt-4 text-[.8rem] max-md:hidden">
+                  <a className="inline-flex items-center gap-2 hover:text-accent transition-colors max-md:hidden" href={`https://github.com/ardish01/${project.repo}`}
+                    target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} on GitHub (opens in a new tab)`}>
+                    View on GitHub <Arrow className="text-[1.1rem] text-accent" />
+                  </a>
+                  {project.demo && (
+                    <a className="inline-flex items-center gap-1.5 text-accent hover:text-accent-bright transition-colors" href={project.demo}
+                      target="_blank" rel="noopener noreferrer" aria-label={`Open the ${project.title} live demo (opens in a new tab)`}>
+                      Live demo <ExternalIcon className="h-4 w-4" />
+                    </a>
+                  )}
+                </div>
               </motion.article>
             ))}
           </AnimatePresence>
