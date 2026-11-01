@@ -308,12 +308,12 @@ test('mobile section pages use compact headers and scannable cards', async ({ pa
         animationDuration: getComputedStyle(wrapper).animationDuration,
       };
     });
-    expect(header.borderTop, `${path} header border`).toBe('1px');
-    expect(header.paddingTop, `${path} header top padding`).toBe('48px');
+    expect(header.borderTop, `${path} header border`).toBe('0px');
+    expect(header.paddingTop, `${path} header top padding`).toBe('0px');
     expect(header.marginBottom, `${path} header bottom margin`).toBe('24px');
     expect(header.eyebrowSize, `${path} section number size`).toBe('12px');
     expect(header.eyebrowMargin, `${path} section number spacing`).toBe('8px');
-    expect(header.eyebrowColor, `${path} section number is muted`).toMatch(/\/ 0\.8\)$/);
+    expect(header.eyebrowColor, `${path} section number is teal`).toBe('rgb(95, 224, 200)');
     expect(header.shellPaddingTop, `${path} page top padding`).toBe('24px');
     expect(header.animationName, `${path} uses a CSS entrance`).toBe('fade-up');
     expect(header.animationDuration, `${path} entrance is lightweight`).toBe('0.5s');
