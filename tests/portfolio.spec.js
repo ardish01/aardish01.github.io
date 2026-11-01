@@ -135,6 +135,133 @@ for (const width of [320, 390, 768, 1024, 1440]) {
   });
 }
 
+test('mobile section pages use compact headers and scannable cards', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  for (const path of ['/projects', '/capabilities', '/contact']) {
+    await page.goto(path);
+    const header = await page.evaluate(() => {
+      const heading = document.querySelector('h1');
+      const wrapper = heading.parentElement;
+      const eyebrow = wrapper.querySelector('p');
+      const shell = wrapper.parentElement;
+      return {
+        borderTop: getComputedStyle(wrapper).borderTopWidth,
+        paddingTop: getComputedStyle(wrapper).paddingTop,
+        marginBottom: getComputedStyle(wrapper).marginBottom,
+        eyebrowSize: getComputedStyle(eyebrow).fontSize,
+        eyebrowMargin: getComputedStyle(eyebrow).marginBottom,
+        eyebrowColor: getComputedStyle(eyebrow).color,
+        shellPaddingTop: getComputedStyle(shell).paddingTop,
+        animationName: getComputedStyle(wrapper).animationName,
+        animationDuration: getComputedStyle(wrapper).animationDuration,
+      };
+    });
+    expect(header.borderTop, `${path} header border`).toBe('1px');
+    expect(header.paddingTop, `${path} header top padding`).toBe('48px');
+    expect(header.marginBottom, `${path} header bottom margin`).toBe('24px');
+    expect(header.eyebrowSize, `${path} section number size`).toBe('12px');
+    expect(header.eyebrowMargin, `${path} section number spacing`).toBe('8px');
+    expect(header.eyebrowColor, `${path} section number is muted`).toMatch(/\/ 0\.8\)$/);
+    expect(header.shellPaddingTop, `${path} page top padding`).toBe('24px');
+    expect(header.animationName, `${path} uses a CSS entrance`).toBe('fade-up');
+    expect(header.animationDuration, `${path} entrance is lightweight`).toBe('0.5s');
+  }
+
+  await page.goto('/projects');
+  const project = await page.evaluate(() => {
+    const card = document.querySelector('#project-grid article');
+    const cover = card.querySelector('[class*="aspect-"]');
+    const title = card.querySelector('h2');
+    const description = card.querySelector('p');
+    const icon = card.querySelector('a.h-11.w-11');
+    const pill = card.querySelector('[aria-label$="tech stack"] span');
+    const bottomLink = [...card.querySelectorAll('a')].find((link) => link.textContent.includes('View on GitHub'));
+    const grid = document.querySelector('#project-grid');
+    return {
+      columns: getComputedStyle(grid).gridTemplateColumns,
+      gap: getComputedStyle(grid).rowGap,
+      coverAspect: getComputedStyle(cover).aspectRatio,
+      coverRadius: getComputedStyle(cover).borderRadius,
+      titleSize: getComputedStyle(title).fontSize,
+      titleWeight: getComputedStyle(title).fontWeight,
+      lineClamp: getComputedStyle(description).webkitLineClamp,
+      iconSize: [icon.getBoundingClientRect().width, icon.getBoundingClientRect().height],
+      pillSize: getComputedStyle(pill).fontSize,
+      pillPadding: getComputedStyle(pill).padding,
+      bottomLinkDisplay: getComputedStyle(bottomLink).display,
+    };
+  });
+  expect(project.columns.trim().split(/\s+/), 'projects are a single column').toHaveLength(1);
+  expect(project.gap, 'project cards are 24px apart').toBe('24px');
+  expect(project.coverAspect, 'project cover is 16:10').toBe('16 / 10');
+  expect(project.coverRadius, 'project cover radius').toBe('10px');
+  expect(project.titleSize, 'project title size').toBe('20px');
+  expect(project.titleWeight, 'project title weight').toBe('700');
+  expect(project.lineClamp, 'description is clamped to two lines').toBe('2');
+  expect(project.iconSize, 'GitHub tap target').toEqual([44, 44]);
+  expect(project.pillSize, 'tech pill size').toBe('12px');
+  expect(project.pillPadding, 'tech pill padding').toBe('4px 10px');
+  expect(project.bottomLinkDisplay, 'bottom link is replaced by icon links').toBe('none');
+
+  await page.goto('/capabilities');
+  const capabilities = await page.evaluate(() => {
+    const section = document.querySelector('section[aria-label="Skills and tools"]');
+    const card = section.firstElementChild;
+    return {
+      display: getComputedStyle(section).display,
+      gap: getComputedStyle(section).gap,
+      border: getComputedStyle(card).borderTopWidth,
+      radius: getComputedStyle(card).borderRadius,
+      padding: getComputedStyle(card).padding,
+      titleSize: getComputedStyle(card.querySelector('h2')).fontSize,
+    };
+  });
+  expect(capabilities.display, 'capabilities stack as cards').toBe('flex');
+  expect(capabilities.gap, 'category cards are 16px apart').toBe('16px');
+  expect(capabilities.border, 'category card border').toBe('1px');
+  expect(capabilities.radius, 'category card radius').toBe('16px');
+  expect(capabilities.padding, 'category card padding').toBe('16px');
+  expect(capabilities.titleSize, 'category title size').toBe('20px');
+
+  await page.goto('/contact');
+  const contact = await page.evaluate(() => {
+    const email = document.querySelector('a[href^="mailto:"]');
+    const copy = document.querySelector('button[type="button"]');
+    const nav = document.querySelector('nav[aria-label="Find me online"]');
+    const socials = [...nav.querySelectorAll('a')];
+    const footer = document.querySelector('footer');
+    const copyright = [...footer.querySelectorAll('span')]
+      .filter((span) => span.textContent.includes('©') && getComputedStyle(span).display !== 'none');
+    return {
+      emailHeight: email.getBoundingClientRect().height,
+      emailWidth: email.getBoundingClientRect().width,
+      copyHeight: copy.getBoundingClientRect().height,
+      copyWidth: copy.getBoundingClientRect().width,
+      socialColumns: getComputedStyle(nav).gridTemplateColumns,
+      socialHeights: socials.map((link) => link.getBoundingClientRect().height),
+      footerDirection: getComputedStyle(footer).flexDirection,
+      footerAlign: getComputedStyle(footer).alignItems,
+      footerPaddingBottom: getComputedStyle(footer).paddingBottom,
+      copyright: copyright.map((span) => span.textContent.trim()),
+    };
+  });
+  expect(contact.emailHeight, 'email CTA height').toBeGreaterThanOrEqual(52);
+  expect(contact.emailWidth, 'email CTA is full width').toBeGreaterThan(280);
+  expect(contact.copyHeight, 'copy button height').toBeGreaterThanOrEqual(52);
+  expect(contact.copyWidth, 'copy button is full width').toBeGreaterThan(280);
+  expect(contact.socialColumns.trim().split(/\s+/), 'socials use two columns').toHaveLength(2);
+  expect(Math.min(...contact.socialHeights), 'social tap targets').toBeGreaterThanOrEqual(44);
+  expect(contact.footerDirection, 'footer stacks on mobile').toBe('column');
+  expect(contact.footerAlign, 'footer is centered').toBe('center');
+  expect(contact.footerPaddingBottom, 'footer clears mobile browser chrome').toBe('32px');
+  expect(contact.copyright, 'footer copyright is one line').toHaveLength(1);
+  expect(contact.copyright[0], 'footer copyright layout').toMatch(/^© \d{4} Aardish Duwal · Bhaktapur, Nepal$/);
+
+  await page.getByRole('button', { name: 'Copy email' }).click();
+  await expect(page.locator('p[role="status"]')).toHaveText('Copied!');
+});
+
 test('reduced-motion preference keeps content visible without prolonged animations', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
@@ -142,6 +269,7 @@ test('reduced-motion preference keeps content visible without prolonged animatio
   await page.getByRole('navigation', { name: 'Main navigation' }).locator('a[href="/projects"]').click();
   await expect(page).toHaveTitle(/^Projects/);
   await expect(page.getByRole('main')).toBeFocused();
+  expect(await page.evaluate(() => getComputedStyle(document.querySelector('h1').parentElement).animationName)).toBe('none');
   await expect.poll(() => page.evaluate(() => document.getAnimations().filter(animation => {
     const duration = animation.effect?.getComputedTiming().endTime;
     return animation.playState === 'running' && duration > 100;

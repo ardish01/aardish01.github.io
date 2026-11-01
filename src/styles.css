@@ -59,3 +59,13 @@
   background-image: linear-gradient(158deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .03) 50%, rgba(95, 224, 200, .06));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16);
 }
+
+/* Lightweight mobile entrance used instead of JS-driven scroll animations. */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-fade-up {
+  animation: fade-up .5s cubic-bezier(.22, 1, .36, 1);
+}
