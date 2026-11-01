@@ -43,7 +43,7 @@ function buildHeadFor(path) {
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/manrope-400.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/dmmono-400.woff2" />
     <link rel="preload" as="image" href="${siteUrl}/assets/aardish-portrait-960-Dv-D8feF.webp" type="image/webp" />
-    <link rel="icon" href="/assets/A-hQ-KRG8R.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/images/A.svg" type="image/svg+xml" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
