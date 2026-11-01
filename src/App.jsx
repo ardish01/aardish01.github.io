@@ -1,13 +1,15 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, Suspense, lazy } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router';
-import Home from './pages/Home.jsx';
-import About from './pages/About.jsx';
-import Projects from './pages/Projects.jsx';
-import Capabilities from './pages/Capabilities.jsx';
-import Contact from './pages/Contact.jsx';
 import { Arrow, ui } from './components.jsx';
 import { profile } from './data.js';
+
+// Code-split each page - loaded on demand
+const Home = lazy(() => import('./pages/Home.jsx'));
+const About = lazy(() => import('./pages/About.jsx'));
+const Projects = lazy(() => import('./pages/Projects.jsx'));
+const Capabilities = lazy(() => import('./pages/Capabilities.jsx'));
+const Contact = lazy(() => import('./pages/Contact.jsx'));
 
 const navigation = [
   ['/about', 'About'], ['/projects', 'Projects'],
@@ -173,11 +175,31 @@ function AnimatedPage({ location, focusOnEntry, menuOpen }) {
       if (definition === 'enter' && focusOnEntry && !menuOpen) main.current?.focus({ preventScroll: true });
     }}>
     <Routes location={location}>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/projects" element={<Projects />} />
-      <Route path="/capabilities" element={<Capabilities />} />
-      <Route path="/contact" element={<Contact />} />
+      <Route path="/" element={
+        <Suspense fallback={<div className="min-h-svh flex items-center justify-center" aria-busy="true"><span className="font-mono text-[.8rem] text-muted">Loading…</span></div>}>
+          <Home />
+        </Suspense>
+      } />
+      <Route path="/about" element={
+        <Suspense fallback={<div className="min-h-svh flex items-center justify-center" aria-busy="true"><span className="font-mono text-[.8rem] text-muted">Loading…</span></div>}>
+          <About />
+        </Suspense>
+      } />
+      <Route path="/projects" element={
+        <Suspense fallback={<div className="min-h-svh flex items-center justify-center" aria-busy="true"><span className="font-mono text-[.8rem] text-muted">Loading…</span></div>}>
+          <Projects />
+        </Suspense>
+      } />
+      <Route path="/capabilities" element={
+        <Suspense fallback={<div className="min-h-svh flex items-center justify-center" aria-busy="true"><span className="font-mono text-[.8rem] text-muted">Loading…</span></div>}>
+          <Capabilities />
+        </Suspense>
+      } />
+      <Route path="/contact" element={
+        <Suspense fallback={<div className="min-h-svh flex items-center justify-center" aria-busy="true"><span className="font-mono text-[.8rem] text-muted">Loading…</span></div>}>
+          <Contact />
+        </Suspense>
+      } />
       <Route path="/index.html" element={<Navigate to="/" replace />} />
       {navigation.map(([to]) => <Route key={to} path={`${to}.html`} element={<Navigate to={to} replace />} />)}
       <Route path="*" element={<NotFound />} />

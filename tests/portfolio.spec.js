@@ -191,9 +191,11 @@ test('mobile header and drawer meet the sticky glass specification', async ({ pa
 
   for (const [path, id] of [['/about', 'about'], ['/projects', 'projects'], ['/capabilities', 'capabilities'], ['/contact', 'contact']]) {
     await page.goto(path);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 10000 });
     expect(await page.evaluate((target) => getComputedStyle(document.getElementById(target)).scrollMarginTop, id), `${path} scroll margin`).toBe('72px');
   }
   await page.goto('/about');
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 10000 });
 
   const toggle = page.getByRole('button', { name: 'Toggle navigation' });
   await toggle.click();
@@ -288,6 +290,7 @@ test('mobile section pages use compact headers and scannable cards', async ({ pa
 
   for (const path of ['/projects', '/capabilities', '/contact']) {
     await page.goto(path);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 10000 });
     const header = await page.evaluate(() => {
       const heading = document.querySelector('h1');
       const wrapper = heading.parentElement;
@@ -317,6 +320,8 @@ test('mobile section pages use compact headers and scannable cards', async ({ pa
   }
 
   await page.goto('/projects');
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 10000 });
+  await expect(page.locator('#project-grid article').first()).toBeVisible({ timeout: 10000 });
   const project = await page.evaluate(() => {
     const card = document.querySelector('#project-grid article');
     const cover = card.querySelector('[class*="aspect-"]');
@@ -353,6 +358,8 @@ test('mobile section pages use compact headers and scannable cards', async ({ pa
   expect(project.bottomLinkDisplay, 'bottom link is replaced by icon links').toBe('none');
 
   await page.goto('/capabilities');
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 10000 });
+  await expect(page.locator('section[aria-label="Skills and tools"]').first()).toBeVisible({ timeout: 10000 });
   const capabilities = await page.evaluate(() => {
     const section = document.querySelector('section[aria-label="Skills and tools"]');
     const card = section.firstElementChild;
@@ -373,6 +380,7 @@ test('mobile section pages use compact headers and scannable cards', async ({ pa
   expect(capabilities.titleSize, 'category title size').toBe('20px');
 
   await page.goto('/contact');
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 10000 });
   const contact = await page.evaluate(() => {
     const main = document.querySelector('main');
     const email = main.querySelector('a[href^="mailto:"]');
@@ -418,6 +426,7 @@ test('reduced-motion preference keeps content visible without prolonged animatio
   await page.getByRole('navigation', { name: 'Main navigation' }).locator('a[href="/projects"]').click();
   await expect(page).toHaveTitle(/^Projects/);
   await expect(page.getByRole('main')).toBeFocused();
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 10000 });
   expect(await page.evaluate(() => getComputedStyle(document.querySelector('h1').parentElement).animationName)).toBe('none');
   await expect.poll(() => page.evaluate(() => document.getAnimations().filter(animation => {
     const duration = animation.effect?.getComputedTiming().endTime;
