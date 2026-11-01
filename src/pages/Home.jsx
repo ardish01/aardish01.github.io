@@ -25,7 +25,7 @@ export default function Home() {
         <Reveal className="relative w-full max-w-[30rem] justify-self-end max-[800px]:mx-0 max-[800px]:w-full max-[800px]:justify-self-start" delay={0.12}>
           <figure className="relative m-0">
             <div onPointerUp={pulse} className="group relative aspect-[4/4.8] overflow-hidden rounded-[26px] border border-white/15 max-md:aspect-[4/5] max-md:rounded-xl">
-              <img className={`h-full w-full rounded-[17px] object-cover object-[center_28%] max-md:rounded-xl ${tapped ? 'scale-[1.05]' : ''}`}
+              <img className={`h-full w-full rounded-[17px] object-cover object-[center_28%] transition-transform duration-500 ease-expo pointer-fine:group-hover:scale-[1.05] max-md:rounded-xl ${tapped ? 'scale-[1.05]' : 'scale-100'}`}
                 src={portraitLarge} srcSet={`${portraitSmall} 480w, ${portraitLarge} 960w`}
                 sizes="(max-width: 800px) 80vw, 30rem" alt="Black-and-white portrait of Aardish Duwal wearing sunglasses"
                 width="960" height="1152" fetchPriority="high" />
