@@ -21,7 +21,7 @@ export default function Capabilities() {
             <span className="pt-2 font-mono text-[.72rem] text-accent max-md:pt-0" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
             <div className="grid grid-cols-[1fr_1.2fr] items-center gap-8 max-[1000px]:grid-cols-1 max-[1000px]:gap-6 max-md:gap-2">
               <h2 className="text-[clamp(1.5rem,3vw,2.6rem)] font-medium tracking-[-.04em] max-md:text-[1.25rem] max-md:font-semibold max-md:leading-[1.3]">{title}</h2>
-              <div className="flex flex-wrap gap-[.6rem] max-md:gap-1.5">{skills.map((skill) => <span className="rounded-lg border border-line bg-white/[.045] px-[.85rem] py-[.65rem] font-mono text-[.72rem] leading-[1.5] text-[#cfe0dc] shadow-[inset_0_1px_0_rgba(255,255,255,.09)] max-md:px-2.5 max-md:py-1.5 max-md:text-[.72rem]" key={skill}>{skill}</span>)}</div>
+              <div className="flex flex-wrap gap-[.6rem] max-md:gap-1.5">{skills.map((skill) => <span className="rounded-lg border border-line bg-white/[.045] px-[.85rem] py-[.65rem] font-mono text-[.72rem] leading-[1.5] text-[#cfe0dc] shadow-[inset_0_1px_0_rgba(255,255,255,.09)] max-md:px-2.5 max-md:py-1.5" key={skill}>{skill}</span>)}</div>
             </div>
           </Reveal>
         ))}

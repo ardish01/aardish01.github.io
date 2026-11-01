@@ -79,7 +79,7 @@ export default function Projects() {
                 className="min-h-11 rounded-[2rem] border border-line bg-white/[.035] px-4 py-[.65rem] text-[.75rem] transition duration-200 hover:border-accent/30 aria-pressed:border-white/30 aria-pressed:bg-[linear-gradient(180deg,var(--color-accent-bright),var(--color-accent)_55%,var(--color-accent-deep))] aria-pressed:text-[#04100e] aria-pressed:shadow-[inset_0_1px_0_rgba(255,255,255,.6),0_10px_24px_-14px_rgba(95,224,200,.7)] max-[560px]:w-full max-[400px]:text-[.72rem]">{item}</button>
             ))}
           </div>
-          <p className="font-mono text-[.72rem] whitespace-nowrap text-muted max-[800px]:text-[.72rem]" role="status" aria-live="polite">
+          <p className="font-mono text-[.72rem] whitespace-nowrap text-muted" role="status" aria-live="polite">
             {visibleProjects.length} of {projects.length} projects
           </p>
         </div>
@@ -115,7 +115,7 @@ export default function Projects() {
                   </div>
                 </div>
                 <p className="text-[.9rem] leading-[1.8] text-muted max-md:line-clamp-3 max-md:text-[.95rem] max-md:leading-[1.55]">{project.description}</p>
-                <p className="my-6 font-mono text-[.72rem] leading-[1.8] text-muted max-[800px]:text-[.72rem] max-md:hidden">{project.stack}</p>
+                <p className="my-6 font-mono text-[.72rem] leading-[1.8] text-muted max-md:hidden">{project.stack}</p>
                 <div className="mt-4 hidden flex-wrap gap-1.5 max-md:flex" aria-label={`${project.title} tech stack`}>
                   {project.stack.split(' · ').map((tag) => (
                     <span className="rounded-md border border-line bg-white/[.04] px-2.5 py-1 font-mono text-[.75rem] leading-none text-[#cfe0dc]" key={tag}>{tag}</span>
