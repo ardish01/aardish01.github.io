@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { Arrow, ExternalIcon, GitHubIcon, NextPage, PageHeading } from '../components.jsx';
+import { Arrow, ExternalIcon, GitHubIcon, NextPage, PageHeading, useMediaQuery } from '../components.jsx';
 import { projects } from '../data.js';
 
 const categories = ['All projects', ...new Set(projects.map((project) => project.category))];
@@ -62,7 +62,7 @@ function ProjectCover({ index, category }) {
 export default function Projects() {
   const [category, setCategory] = useState('All projects');
   const reduced = useReducedMotion();
-  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+  const isMobile = useMediaQuery('(max-width: 767px)');
   const visibleProjects = projects.filter((project) => category === 'All projects' || project.category === category);
 
   return (

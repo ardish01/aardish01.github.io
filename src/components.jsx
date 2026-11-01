@@ -2,6 +2,19 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router';
 
+// SSR-safe media query hook - returns false on server, actual value after hydration
+export function useMediaQuery(query) {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    setMatches(media.matches);
+    const listener = (e) => setMatches(e.matches);
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
+  }, [query]);
+  return matches;
+}
+
 export const ui = {
   eyebrow: 'font-mono text-[.7rem] leading-[1.6] uppercase tracking-[.12em] text-accent',
   primaryButton: 'inline-flex min-h-13 items-center justify-center gap-8 rounded-full border border-white/35 bg-[linear-gradient(180deg,var(--color-accent-bright),var(--color-accent)_48%,var(--color-accent-deep))] px-[1.4rem] py-4 text-[.8rem] font-semibold text-[#04100e] shadow-[inset_0_1px_0_rgba(255,255,255,.7),inset_0_-3px_8px_rgba(0,0,0,.16),0_16px_36px_-16px_rgba(95,224,200,.55)] transition duration-300 ease-expo pointer-fine:hover:-translate-y-[3px] pointer-fine:hover:brightness-105',
@@ -10,8 +23,7 @@ export const ui = {
 
 export function Reveal({ children, className = '', delay = 0 }) {
   const reduced = useReducedMotion();
-  // Use a lightweight CSS entrance on phones instead of JS-driven scroll work.
-  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+  const isMobile = useMediaQuery('(max-width: 767px)');
   if (isMobile) return <div className={`${className} max-md:animate-fade-up`}>{children}</div>;
   return <motion.div className={className} initial={{ opacity: 0, y: reduced ? 0 : 24 }}
     whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }}

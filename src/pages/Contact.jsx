@@ -3,7 +3,10 @@ import { Arrow, PageHeading, Reveal } from '../components.jsx';
 import { profile, socials } from '../data.js';
 
 async function copyToClipboard(text) {
-  if (window.isSecureContext && navigator.clipboard?.writeText) {
+  // Use a simple approach that works both server and client
+  // On server, this won't be called anyway (no clipboard)
+  const isSecureContext = typeof window !== 'undefined' && window.isSecureContext;
+  if (isSecureContext && navigator.clipboard?.writeText) {
     try {
       await navigator.clipboard.writeText(text);
       return true;
