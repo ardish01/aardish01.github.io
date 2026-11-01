@@ -1,5 +1,5 @@
-import nightvisionLogo from '../assets/images/nightvision.png';
-import cloudfactoryLogo from '../assets/images/cloudfactory.png';
+import nightvisionLogo from '../assets/images/nightvision.webp';
+import cloudfactoryLogo from '../assets/images/cloudfactory.webp';
 
 export const profile = {
   name: 'Aardish Duwal',

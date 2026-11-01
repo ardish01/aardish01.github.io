@@ -351,7 +351,7 @@ test('mobile section pages use compact headers and scannable cards', async ({ pa
   expect(project.coverRadius, 'project cover radius').toBe('10px');
   expect(project.titleSize, 'project title size').toBe('20px');
   expect(project.titleWeight, 'project title weight').toBe('700');
-  expect(project.lineClamp, 'description is clamped to two lines').toBe('2');
+  expect(project.lineClamp, 'description is clamped to three lines').toBe('3');
   expect(project.iconSize, 'GitHub tap target').toEqual([44, 44]);
   expect(project.pillSize, 'tech pill size').toBe('12px');
   expect(project.pillPadding, 'tech pill padding').toBe('4px 10px');
