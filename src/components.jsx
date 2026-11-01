@@ -10,6 +10,9 @@ export const ui = {
 
 export function Reveal({ children, className = '', delay = 0 }) {
   const reduced = useReducedMotion();
+  // Skip entrance animations on phones so copy and section markers paint immediately.
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+  if (isMobile) return <div className={className}>{children}</div>;
   return <motion.div className={className} initial={{ opacity: 0, y: reduced ? 0 : 24 }}
     whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }}
     transition={{ duration: reduced ? 0 : 0.65, delay: reduced ? 0 : delay, ease: [0.22, 1, 0.36, 1] }}>

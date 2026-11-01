@@ -14,24 +14,23 @@ export default function Home() {
             <span className="block">Aardish</span><span className="block"><em className="not-italic text-accent">Duwal.</em></span>
           </h1>
           <p className="max-w-[32rem] text-base leading-[1.8] text-muted">
-            Building for the web. Exploring what data can do.
-            {' '}I’m a {profile.role.toLowerCase()} at {profile.company} and a data annotator at CloudFactory,
-            with a curiosity for machine learning and making complex things feel simple.
+            <span className="max-md:block max-md:text-[clamp(2.25rem,8vw,3.25rem)] max-md:font-bold max-md:leading-[1.08] max-md:tracking-[-.03em] max-md:text-balance max-md:text-ink">Building for the web. Exploring what data can do.</span>
+            {' '}<span className="max-md:mt-3 max-md:block max-md:max-w-[38ch] max-md:text-base max-md:leading-[1.6] max-md:text-pretty max-md:text-muted">I’m a {profile.role.toLowerCase()} at {profile.company} and a data annotator at CloudFactory, with a curiosity for machine learning and making complex things feel simple.</span>
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-7 max-[400px]:gap-4">
-            <Link className={ui.primaryButton} to="/projects">Explore my work <Arrow className="text-[1.3rem]" /></Link>
-            <Link className={ui.textLink} to="/about">A little about me <Arrow diagonal={false} /></Link>
+          <div className="mt-8 flex flex-wrap items-center gap-7 max-md:mt-7 max-md:flex-col max-md:items-stretch max-md:gap-3">
+            <Link className={`${ui.primaryButton} max-md:w-full`} to="/projects">Explore my work <Arrow className="text-[1.3rem]" /></Link>
+            <Link className={`${ui.textLink} max-md:w-full max-md:min-h-12 max-md:justify-center max-md:rounded-full max-md:border max-md:border-line max-md:bg-white/[.035] max-md:px-6 max-md:py-3 max-md:text-ink max-md:shadow-[inset_0_1px_0_rgba(255,255,255,.08)]`} to="/about">A little about me <Arrow diagonal={false} /></Link>
           </div>
         </Reveal>
         <Reveal className="relative w-full max-w-[30rem] justify-self-end max-[800px]:mx-auto max-[800px]:w-[min(84%,24rem)] max-[800px]:justify-self-center max-[400px]:w-[90%]" delay={0.12}>
-          <figure className="m-0">
-            <div onPointerUp={pulse} className="group relative aspect-[4/4.8] overflow-hidden rounded-[26px] border border-white/15 bg-[linear-gradient(158deg,rgba(255,255,255,.10),rgba(255,255,255,.03)_50%,rgba(95,224,200,.06))] p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,.16),0_40px_80px_-40px_rgba(0,0,0,.95),0_0_70px_-24px_rgba(95,224,200,.20)]">
-              <img className={`h-full w-full rounded-[17px] object-cover object-[center_28%] transition-transform duration-1000 ease-expo pointer-fine:group-hover:scale-[1.04] ${tapped ? 'scale-[1.05]' : ''}`}
+          <figure className="relative m-0">
+            <div onPointerUp={pulse} className="group relative aspect-[4/4.8] overflow-hidden rounded-[26px] border border-white/15 bg-[linear-gradient(158deg,rgba(255,255,255,.10),rgba(255,255,255,.03)_50%,rgba(95,224,200,.06))] p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,.16),0_40px_80px_-40px_rgba(0,0,0,.95),0_0_70px_-24px_rgba(95,224,200,.20)] max-md:aspect-[4/5] max-md:rounded-xl max-md:p-0">
+              <img className={`h-full w-full rounded-[17px] object-cover object-[center_28%] transition-transform duration-1000 ease-expo pointer-fine:group-hover:scale-[1.04] max-md:rounded-xl ${tapped ? 'scale-[1.05]' : ''}`}
                 src={portraitLarge} srcSet={`${portraitSmall} 480w, ${portraitLarge} 960w`}
                 sizes="(max-width: 800px) 80vw, 30rem" alt="Black-and-white portrait of Aardish Duwal wearing sunglasses"
                 width="960" height="1152" fetchPriority="high" />
             </div>
-            <figcaption className="mt-4 flex justify-between gap-4 font-mono text-[.6rem] uppercase text-muted max-[800px]:text-[.7rem]">
+            <figcaption className="mt-4 flex justify-between gap-4 font-mono text-[.6rem] uppercase text-muted max-[800px]:text-[.7rem] max-md:pointer-events-none max-md:absolute max-md:inset-x-0 max-md:bottom-0 max-md:z-10 max-md:mt-0 max-md:items-center max-md:rounded-b-xl max-md:bg-black/45 max-md:px-3 max-md:py-3 max-md:text-[.65rem] max-md:text-white/85 max-md:backdrop-blur-[8px]">
               <span>Based in {profile.location}</span><span>01 / Portrait</span>
             </figcaption>
             <span className="absolute -left-9 bottom-14 grid h-24 w-24 -rotate-12 place-items-center rounded-full border-[6px] border-bg bg-[linear-gradient(160deg,var(--color-accent-bright),var(--color-accent)_55%,var(--color-accent-deep))] p-3 text-center font-mono text-[.65rem] leading-[1.4] text-[#04100e] shadow-[inset_0_1px_0_rgba(255,255,255,.65),0_14px_30px_-14px_rgba(95,224,200,.55)] max-[400px]:-left-5 max-[400px]:h-20 max-[400px]:w-20 max-[400px]:text-[.55rem]" aria-hidden="true">Think.<br />Build.<br />Repeat.</span>

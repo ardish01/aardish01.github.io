@@ -8,6 +8,7 @@ const categories = ['All projects', ...new Set(projects.map((project) => project
 export default function Projects() {
   const [category, setCategory] = useState('All projects');
   const reduced = useReducedMotion();
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
   const visibleProjects = projects.filter((project) => category === 'All projects' || project.category === category);
 
   return (
@@ -32,7 +33,7 @@ export default function Projects() {
           <AnimatePresence mode="popLayout" initial={false}>
             {visibleProjects.map((project) => (
               <motion.article key={project.repo} className="glass relative flex flex-col rounded-[20px] border border-line p-8 transition duration-300 hover:border-accent/30 pointer-fine:hover:-translate-y-1 max-[800px]:p-6 max-[400px]:p-5" layout={!reduced}
-                initial={{ opacity: 0, y: reduced ? 0 : 16 }} animate={{ opacity: 1, y: 0 }}
+                initial={isMobile ? false : { opacity: 0, y: reduced ? 0 : 16 }} animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: reduced ? 0 : -8 }}
                 transition={{ duration: reduced ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}>
                 <div className="flex items-center justify-between gap-4 font-mono text-[.65rem] leading-[1.5] text-muted uppercase">
