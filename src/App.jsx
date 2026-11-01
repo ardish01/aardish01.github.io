@@ -136,7 +136,7 @@ function Header({ open, setOpen }) {
 }
 
 function Footer() {
-  return <footer className="mx-pad flex flex-wrap justify-between gap-6 border-t border-line py-8 font-mono text-[.72rem] leading-[1.6] tracking-[.05em] text-muted uppercase max-[800px]:flex-col max-[800px]:items-start max-[800px]:gap-3 max-[800px]:pb-[calc(2rem+env(safe-area-inset-bottom))] max-[800px]:text-[.7rem] max-md:items-center max-md:gap-2 max-md:pb-[calc(2rem+env(safe-area-inset-bottom))] max-md:text-center"><span className="max-md:hidden">© {new Date().getFullYear()} Aardish Duwal</span>
+  return <footer className="mx-pad flex flex-wrap justify-between gap-6 border-t border-line py-8 font-mono text-[.72rem] leading-[1.6] tracking-[.05em] text-muted uppercase max-[800px]:flex-col max-[800px]:items-start max-[800px]:gap-3 max-[800px]:pb-[calc(2rem+env(safe-area-inset-bottom))] max-[800px]:text-[.72rem] max-md:items-center max-md:gap-2 max-md:pb-[calc(2rem+env(safe-area-inset-bottom))] max-md:text-center"><span className="max-md:hidden">© {new Date().getFullYear()} Aardish Duwal</span>
     <span className="flex items-center gap-[.6rem] max-md:hidden"><i className="h-[.4rem] w-[.4rem] rounded-full bg-accent" /> Bhaktapur, Nepal</span>
     <span className="hidden max-md:inline max-md:text-[.72rem] max-md:tracking-[.01em]">© {new Date().getFullYear()} Aardish Duwal · Bhaktapur, Nepal</span>
     <a className="inline-flex gap-4 hover:text-accent max-[800px]:min-h-11 max-[800px]:items-center max-md:justify-center" href="https://github.com/ardish01" target="_blank" rel="noopener noreferrer">Find me on GitHub <Arrow /></a>

@@ -49,7 +49,7 @@ function ProjectCover({ index, category }) {
       <span className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-accent/10 blur-3xl" />
       <span className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:28px_28px]" />
       <span className="absolute -right-2 -bottom-4 text-[5rem] font-extrabold leading-none tracking-[-.08em] text-white/[.06]">{index}</span>
-      <span className="absolute top-4 left-4 font-mono text-[.6rem] uppercase tracking-[.14em] text-accent/85">{category}</span>
+      <span className="absolute top-4 left-4 font-mono text-[.72rem] uppercase tracking-[.14em] text-accent/85">{category}</span>
       <CoverArt category={category} />
       <span className="absolute bottom-4 left-4 flex items-center gap-2">
         <i className="h-px w-8 bg-accent/70" />
