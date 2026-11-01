@@ -10,7 +10,7 @@ export default function Home() {
     <div className="mx-auto min-[1600px]:max-w-[1600px]">
       <section className="grid min-h-[min(820px,calc(100svh-6rem))] grid-cols-[1.15fr_.85fr] items-center gap-12 px-pad pt-20 pb-16 max-[1000px]:gap-8 max-[800px]:min-h-0 max-[800px]:grid-cols-1 max-[800px]:pt-12 max-[800px]:pb-10" aria-labelledby="hero-title">
         <Reveal className="relative z-[2]">
-          <h1 id="hero-title" className="mb-7 text-[clamp(3.25rem,6.6vw,7rem)] font-extrabold leading-[1.1] tracking-[-.055em] max-[1000px]:text-[clamp(3rem,6.6vw,6rem)] max-[800px]:text-[clamp(3.2rem,10vw,5.7rem)] max-[400px]:text-[3rem]">
+          <h1 id="hero-title" className="mb-7 text-[clamp(3.25rem,6.6vw,7rem)] font-extrabold leading-[1.1] tracking-[-.04em] [word-spacing:0.04em] max-[1000px]:text-[clamp(3rem,6.6vw,6rem)] max-[800px]:text-[clamp(3.2rem,10vw,5.7rem)] max-[400px]:text-[3rem]">
             <span className="block">Aardish</span><span className="block"><em className="not-italic text-accent">Duwal.</em></span>
           </h1>
           <p className="max-w-[32rem] text-base leading-[1.8] text-muted">

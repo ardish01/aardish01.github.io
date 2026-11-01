@@ -11,7 +11,7 @@ export default function About() {
       <section className="grid min-h-[36rem] grid-cols-[1.25fr_.8fr] items-center gap-[clamp(3rem,8vw,8rem)] pb-16 max-[800px]:min-h-0 max-[800px]:grid-cols-1 max-[800px]:gap-12 max-[800px]:pb-8" aria-labelledby="about-title">
         <Reveal>
           <p className={`${ui.eyebrow} mb-6`}>About me / The story so far</p>
-          <h1 id="about-title" className="mb-7 text-[clamp(2.8rem,5.2vw,5rem)] font-extrabold leading-[1.1] tracking-[-.055em] [&_em]:not-italic [&_em]:text-accent max-[800px]:text-[clamp(2.6rem,8.7vw,4.5rem)]">Curiosity, turned<br />into <em>code.</em></h1>
+          <h1 id="about-title" className="mb-7 text-[clamp(2.8rem,5.2vw,5rem)] font-extrabold leading-[1.1] tracking-[-.04em] [word-spacing:0.04em] [&_em]:not-italic [&_em]:text-accent max-[800px]:text-[clamp(2.6rem,8.7vw,4.5rem)]">Curiosity, turned<br />into <em>code.</em></h1>
           <p className="mt-5 text-[1.2rem] leading-[1.9] text-ink">I’m {profile.name} — a developer and data enthusiast based in {profile.location}.</p>
           <p className="mt-5 text-[1.05rem] leading-[1.9] text-muted">I work as a {profile.role.toLowerCase()} at {profile.company} and a data annotator at CloudFactory. Alongside work, I’m pursuing a Bachelor of Computer Applications.</p>
           <p className="mt-5 text-[1.05rem] leading-[1.9] text-muted">For me, technology is a way to make complex things clearer, connect ideas, and build something useful.</p>

@@ -145,7 +145,7 @@ function Footer() {
 
 function NotFound() {
   return <div className="mx-auto min-h-[calc(100svh-15rem)] max-w-[1440px] px-pad pt-20 pb-20 max-[800px]:pt-12"><p className={ui.eyebrow}>404 / A little off course</p>
-    <h1 className="my-8 text-[clamp(3rem,5.5vw,5.5rem)] font-extrabold leading-[1.1] tracking-[-.055em]">Let’s get<br /><em className="not-italic text-accent">you back.</em></h1><Link className={ui.primaryButton} to="/">Back home <Arrow className="text-[1.3rem]" /></Link>
+    <h1 className="my-8 text-[clamp(3rem,5.5vw,5.5rem)] font-extrabold leading-[1.1] tracking-[-.04em] [word-spacing:0.04em]">Let’s get<br /><em className="not-italic text-accent">you back.</em></h1><Link className={ui.primaryButton} to="/">Back home <Arrow className="text-[1.3rem]" /></Link>
   </div>;
 }
 

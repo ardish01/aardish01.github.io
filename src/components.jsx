@@ -64,13 +64,13 @@ export function useTapPulse(duration = 750) {
 
 export function PageHeading({ number, label, children, description }) {
   return <Reveal className="mb-16 max-[800px]:mb-12 max-md:mb-6 max-md:border-t max-md:border-line max-md:pt-12"><p className={`${ui.eyebrow} mb-7 max-md:mb-2 max-md:text-[.75rem] max-md:text-muted/80`}>{number} / {label}</p>
-    <h1 className="text-[clamp(3rem,5.5vw,5.5rem)] font-extrabold leading-[1.1] tracking-[-.055em] [&_em]:not-italic [&_em]:text-accent max-[800px]:text-[clamp(2.9rem,9.5vw,5.5rem)]">{children}</h1>
+    <h1 className="text-[clamp(3rem,5.5vw,5.5rem)] font-extrabold leading-[1.1] tracking-[-.04em] [word-spacing:0.04em] [&_em]:not-italic [&_em]:text-accent max-[800px]:text-[clamp(2.9rem,9.5vw,5.5rem)]">{children}</h1>
     {description && <p className="mt-7 max-w-[34rem] leading-[1.8] text-muted max-md:mt-4">{description}</p>}
   </Reveal>;
 }
 
 export function NextPage({ to, label, number }) {
   return <nav className="mt-24 border-t border-line pt-8 pb-12 max-[800px]:mt-16" aria-label="Continue exploring"><span className={ui.eyebrow}>Next / {number}</span>
-    <Link className="group mt-4 flex items-center justify-between text-[clamp(2rem,4.5vw,4rem)] tracking-[-.05em]" to={to}>{label}<Arrow className="text-accent transition-transform duration-300 ease-expo pointer-fine:group-hover:translate-x-[5px] pointer-fine:group-hover:-translate-y-[5px]" /></Link>
+    <Link className="group mt-4 flex items-center justify-between text-[clamp(2rem,4.5vw,4rem)] tracking-[-.04em] [word-spacing:0.04em]" to={to}>{label}<Arrow className="text-accent transition-transform duration-300 ease-expo pointer-fine:group-hover:translate-x-[5px] pointer-fine:group-hover:-translate-y-[5px]" /></Link>
   </nav>;
 }
